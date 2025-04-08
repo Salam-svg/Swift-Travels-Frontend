@@ -1,0 +1,49 @@
+
+
+@media (max-width: 350px) {
+    .list-Links{
+        display: none;
+    }
+    .logo-Tag{
+        font-size: 12px;
+    }
+    .user-display{
+        gap: 1;
+    }
+}
+
+@media (max-width: 376px) {
+    .list-Links{
+        display: none;
+    }
+    .logo-Tag{
+        font-size: 12px;
+    }
+    .user-display{
+        gap: 1;
+    }
+}
+@media (max-width: 456px) {
+    .list-Links{
+        display: none;
+    }
+    .logo-Tag{
+        font-size: 13px;
+    }
+    .user-display{
+        gap: 1;
+    }
+    .user-Name{
+        font-size: 10px;
+        
+    }
+    .logout-btn{
+        padding: 20px;
+
+    }
+    .navbar-Div{
+        position: sticky;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
