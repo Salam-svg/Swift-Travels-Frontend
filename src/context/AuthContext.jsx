@@ -13,6 +13,9 @@ const AuthProvider = ({ children }) => {
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [signingUp, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
+  const baseUrl = import.meta.env.VITE_BASE_URL
+  
+  
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -28,7 +31,7 @@ const AuthProvider = ({ children }) => {
   const Signup = async (formData) => {
     setSigningUp(true);
     try {
-      const response = await fetch(`http://localhost:7500/auth/signup`, {
+      const response = await fetch(`${baseUrl}/auth/signup`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -52,7 +55,7 @@ const AuthProvider = ({ children }) => {
   const login = async (formDates, callback) => {
     setLoggingIn(true);
     try {
-      const response = await fetch(`http://localhost:7500/auth/login`, {
+      const response = await fetch(`${baseUrl}/auth/login`, {
         method: "POST",
         body: JSON.stringify(formDates),
         headers: {

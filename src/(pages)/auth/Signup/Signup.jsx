@@ -32,7 +32,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     Signup(formData, () => {
-      navigate("/Login");
+      navigate("/login");
     });
   };
 

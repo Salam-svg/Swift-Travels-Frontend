@@ -14,6 +14,7 @@ const FlightProvider = ({ children }) => {
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [bookingDetails, setBookingDetails] = useState(null);
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const baseUrl = import.meta.env.VITE_BASE_URL
   
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const FlightProvider = ({ children }) => {
       });
 
       const response = await axios.get(
-        `http://localhost:7500/api/flights?${queryParams}`
+        `${baseUrl}/api/flights?${queryParams}`
       );
       console.log("Raw response:", response);
 
@@ -83,7 +84,7 @@ const FlightProvider = ({ children }) => {
   const fetchSuggestions = async (input, type) => {
     try {
       const response = await axios.get(
-        `http://localhost:7500/api/airports?search=${input}`
+        `${baseUrl}/api/airports?search=${input}`
       );
       return response.data;
     } catch (error) {
@@ -104,7 +105,7 @@ const FlightProvider = ({ children }) => {
         },
       };
       const response = await axios.post(
-        "http://localhost:7500/flights/booking",
+        `${baseUrl}/flights/booking`,
         {
           user: bookingData.user,
           flightOffer,
@@ -140,7 +141,7 @@ const FlightProvider = ({ children }) => {
       setError(null);
 
       const response = await axios.post(
-        `http://localhost:7500/booking/payment`,
+        `${baseUrl}/booking/payment`,
         paymentData,
         {
           headers: { "Content-Type": "application/json" },

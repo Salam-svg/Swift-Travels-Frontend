@@ -90,7 +90,7 @@ const FlightSearchForm = () => {
         maxWidth: "1000px",
         margin: "0 auto",
         padding: "20px",
-        border: "2px solid red"
+
       }}
     >
       <div className="form-group relative flex-1 mr-4">
