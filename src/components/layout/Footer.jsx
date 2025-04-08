@@ -12,42 +12,49 @@ import {
 
 const Footer = () => {
   return (
-    <div className=" bg-[#101828]    font-Josefin" style={{
-      paddingBottom: "70px"
-    }}>
-      <div  className="flex bg-[#101828] items-center font-Josefin"
+    <div
+      className="bg-[#101828] font-Josefin py-12 px-4 md:px-8 lg:pb-16"
       style={{
-        paddingLeft: "150px",
-        gap: "9rem",
-        alignItems: "flex-start",
-        paddingTop: "60px",
-        paddingBottom: "100px",
-      }}>
-        <div>
+        paddingTop: "40px",
+        paddingBottom: "40px",
+      }}
+    >
+      <div
+        className="flex flex-col md:flex-row items-start justify-between max-w-7xl mx-auto gap-12 md:gap-16 lg:gap-20 mb-16"
+        style={{
+          marginTop: "20px",
+        }}
+      >
+        <div
+          className="w-full md:w-1/3 mb-12 md:mb-0"
+          style={{
+            width: "90%",
+            margin: "0 auto",
+          }}
+        >
           <h1
-            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-pink-500 bg-clip-text text-transparent  font-bold cursor-pointer"
+            className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-pink-500 bg-clip-text text-transparent font-bold text-2xl md:text-3xl mb-8 cursor-pointer"
             style={{
-              marginBottom: "30px",
-              fontSize: "30px",
+              fontSize: "24px",
             }}
           >
             SWIFT-TRAVELS
           </h1>
           <p
+            className="text-gray-300 text-sm mb-8"
             style={{
-              marginBottom: "30px",
-              fontSize: "12px",
+              lineHeight: "1.6",
             }}
           >
-            At SWIFT-TRAVELS, we make your flight <br /> booking experience
-            seamless and <br />
-            convenient. Discover the world with just <br /> a few clicks
+            At SWIFT-TRAVELS, we make your flight booking experience seamless
+            and convenient. Discover the world with just a few clicks.
           </p>
-          <div style={{ display: "flex", gap: "10px", fontSize: "24px" }}>
+          <div className="flex gap-6 text-xl text-gray-400">
             <a
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-blue-500 transition-colors"
             >
               <FaFacebook />
             </a>
@@ -55,6 +62,7 @@ const Footer = () => {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-pink-500 transition-colors"
             >
               <FaInstagram />
             </a>
@@ -62,6 +70,7 @@ const Footer = () => {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-blue-700 transition-colors"
             >
               <FaLinkedin />
             </a>
@@ -69,97 +78,103 @@ const Footer = () => {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-blue-400 transition-colors"
             >
               <FaXTwitter />
             </a>
           </div>
         </div>
-        <div>
+
+        <div
+          className="w-full md:w-1/4 mb-12 md:mb-0"
+          style={{
+            width: "90%",
+            margin: "0 auto",
+          }}
+        >
           <h1
+            className="text-white text-base font-medium mb-6"
             style={{
-              marginBottom: "14px",
-              fontSize: "15px",
+              fontSize: "18px",
             }}
           >
             Helpful Links
           </h1>
           <div
+            className="w-24 h-1 bg-[#691057] mb-8"
             style={{
-              width: "180px",
-              height: "3px",
-              backgroundColor: "#691057",
-              marginBottom: "30px",
+              marginBottom: "20px",
             }}
           ></div>
-          <div>
-            <ul
-              style={{
-                fontSize: "13px",
-              }}
-            >
-              <li>Home</li>
-              <li>About us</li>
-              <li>Search Flights</li>
-              <li>FAQs</li>
-              <li>Terms & Conditions</li>
-              <li>Privacy Policy</li>
-              <li>Contact us</li>
-            </ul>
-          </div>
+          <ul className="text-gray-300 text-sm space-y-4">
+            <li className="hover:text-white cursor-pointer">Home</li>
+            <li className="hover:text-white cursor-pointer">About us</li>
+            <li className="hover:text-white cursor-pointer">Search Flights</li>
+            <li className="hover:text-white cursor-pointer">FAQs</li>
+            <li className="hover:text-white cursor-pointer">
+              Terms & Conditions
+            </li>
+            <li className="hover:text-white cursor-pointer">Privacy Policy</li>
+            <li className="hover:text-white cursor-pointer">Contact us</li>
+          </ul>
         </div>
-        <div>
+
+        <div
+          className="w-full md:w-1/3"
+          style={{
+            width: "90%",
+            margin: "0 auto",
+          }}
+        >
           <h1
+            className="text-white text-base font-medium mb-6"
             style={{
-              marginBottom: "14px",
-              fontSize: "15px",
+              fontSize: "18px",
             }}
           >
             Reach Us
           </h1>
           <div
+            className="w-24 h-1 bg-[#691057] mb-8"
             style={{
-              width: "180px",
-              height: "3px",
-              backgroundColor: "#691057",
-              marginBottom: "30px",
+              marginBottom: "20px",
             }}
           ></div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-              fontSize: "15px",
-            }}
-          >
-            <p className="flex items-center">
-              <FaPhone /> +234 704 468 6995
+          <div className="flex flex-col gap-4 text-sm text-gray-300">
+            <p className="flex items-center gap-3">
+              <FaPhone className="text-gray-400" /> +234 704 468 6995
             </p>
-            <p className="flex items-center">
-              <FaEnvelope /> olaleyesalam37@gmail.com
+            <p className="flex items-center gap-3">
+              <FaEnvelope className="text-gray-400" /> olaleyesalam37@gmail.com
             </p>
-            <p className="flex items-center">
-              <FaClock /> Mon-Fri: 9AM - 6PM
+            <p className="flex items-center gap-3">
+              <FaClock className="text-gray-400" /> Mon-Fri: 9AM - 6PM
             </p>
-            <p className="flex items-center ">
-              <FaLocationDot /> 123 Main St, City, Country
+            <p className="flex items-center gap-3">
+              <FaLocationDot className="text-gray-400" /> 123 Main St, City,
+              Country
             </p>
           </div>
         </div>
       </div>
+
       <div
-      style={{
-        width: "80%",
-        height: "3px",
-        background: "linear-gradient(to right, #2196F3, #3e246b)",
-        margin: "auto"
-      }}
+        className="w-11/12 h-px bg-gradient-to-r from-blue-500 to-purple-800 mx-auto mt-12"
+        style={{
+          width: "90%",
+          margin: "0 auto",
+          marginTop: "20px"
+        }}
       ></div>
-      <p style={{
-        paddingLeft: "125px",
-        paddingTop: "50px",
-        color: "rgb(75, 78, 82)"
-      }}>© 2025 SWIFT-TRAVELS, All Rights Reserved</p>
+
+      <div
+        className="text-center md:text-left md:pl-4 lg:pl-8 pt-8 text-gray-500 text-sm"
+        style={{
+          paddingTop: "30px",
+        }}
+      >
+        © 2025 SWIFT-TRAVELS, All Rights Reserved
+      </div>
     </div>
   );
 };

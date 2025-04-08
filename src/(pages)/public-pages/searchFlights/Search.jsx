@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useFlightContext } from "../../../context/SearchFlights";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../../Hooks/useDeBounce";
@@ -6,6 +6,7 @@ import { useDebounce } from "../../../Hooks/useDeBounce";
 const FlightSearchForm = () => {
   const { searchFlights, loading, fetchSuggestions } = useFlightContext();
   const navigate = useNavigate();
+  const formRef = useRef(null);
   const [formData, setFormData] = useState({
     origin: "",
     destination: "",
@@ -59,11 +60,26 @@ const FlightSearchForm = () => {
     setSuggestions((prev) => ({ ...prev, [type]: [] }));
   };
 
+  const handleFocus = (inputType) => {
+    setActiveInput(inputType);
+    // Prevent automatic scrolling on mobile
+    setTimeout(() => {
+      if (formRef.current) {
+        // Ensure we stay within our container
+        formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => setActiveInput(null), 200);
+  };
+
   const renderSuggestions = (type) => {
     if (!suggestions[type].length || activeInput !== type) return null;
 
     return (
-      <div className="suggestions-container absolute z-10 bg-white shadow-lg rounded mt-1 max-h-60 overflow-y-auto">
+      <div className="suggestions-container absolute z-10 bg-white shadow-lg rounded mt-1 max-h-60 overflow-y-auto w-full">
         {suggestions[type].map((item, index) => (
           <div
             key={`${type}-${index}`}
@@ -82,18 +98,20 @@ const FlightSearchForm = () => {
 
   return (
     <form 
+      ref={formRef}
       onSubmit={handleSubmit}
-      className="flight-search-form bg-white text-black flex"
+      className="flight-search-form bg-white text-black flex flex-col md:flex-row relative"
       style={{
         borderRadius: "20px",
         width: "100%",
         maxWidth: "1000px",
         margin: "0 auto",
         padding: "20px",
-
+        position: "relative",
+        zIndex: 10,
       }}
     >
-      <div className="form-group relative flex-1 mr-4">
+      <div className="form-group relative w-full md:flex-1 md:mr-4 mb-4 md:mb-0">
         <label className="block mb-2 font-medium">Origin (IATA code)</label>
         <div className="relative">
           <input
@@ -102,8 +120,8 @@ const FlightSearchForm = () => {
             placeholder="LOS"
             value={formData.origin}
             onChange={(e) => handleInputChange("origin", e.target.value)}
-            onFocus={() => setActiveInput("origin")}
-            onBlur={() => setTimeout(() => setActiveInput(null), 200)}
+            onFocus={() => handleFocus("origin")}
+            onBlur={handleBlur}
             required
             pattern="[A-Za-z]{3}"
             title="3-letter IATA code"
@@ -113,7 +131,7 @@ const FlightSearchForm = () => {
         </div>
       </div>
 
-      <div className="form-group relative flex-1 mr-4">
+      <div className="form-group relative w-full md:flex-1 md:mr-4 mb-4 md:mb-0">
         <label className="block mb-2 font-medium">
           Destination (IATA code)
         </label>
@@ -124,8 +142,8 @@ const FlightSearchForm = () => {
             placeholder="JFK"
             value={formData.destination}
             onChange={(e) => handleInputChange("destination", e.target.value)}
-            onFocus={() => setActiveInput("destination")}
-            onBlur={() => setTimeout(() => setActiveInput(null), 200)}
+            onFocus={() => handleFocus("destination")}
+            onBlur={handleBlur}
             required
             pattern="[A-Za-z]{3}"
             title="3-letter IATA code"
@@ -135,7 +153,7 @@ const FlightSearchForm = () => {
         </div>
       </div>
 
-      <div className="form-group flex-1 mr-4">
+      <div className="form-group w-full md:flex-1 md:mr-4 mb-6 md:mb-0">
         <label className="block mb-2 font-medium">Departure Date</label>
         <input
           className="w-full p-2 border-b-2 border-gray-300 outline-none focus:border-purple-700 transition-colors"
@@ -144,20 +162,23 @@ const FlightSearchForm = () => {
           onChange={(e) =>
             setFormData((prev) => ({ ...prev, departureDate: e.target.value }))
           }
+          onFocus={() => handleFocus("date")}
+          onBlur={handleBlur}
           required
           min={new Date().toISOString().split("T")[0]}
         />
       </div>
 
-      <div className="self-end">
+      <div className="w-full md:self-end md:w-auto">
         <button
-          className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
+          className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
           style={{
             backgroundColor: "rgb(105, 16, 87)",
             color: "#fff",
             padding: "0.5rem 1rem",
             borderRadius: "0.5rem",
             border: "none",
+            width: "100%", // Full width on mobile
           }}
           type="submit"
           disabled={loading}

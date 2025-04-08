@@ -38,52 +38,44 @@ const Signup = () => {
 
   return (
     <div
-      className="text-white flex justify-between h-130 bg-[rgb(21, 1, 39)]"
+      className="text-white flex flex-col md:flex-row justify-between "
       style={{
-        // backgroundColor: "rgb(21, 1, 39)",
-        width: "97%",
-        margin: "0 auto",
+        width: "95%",
+        maxWidth: "1200px",
+        margin: "4rem auto 5rem",
         borderRadius: "25px",
-        marginTop: "8.3rem",
         color: "white",
-        marginBottom: "130px",
       }}
     >
-      <Lottie animationData={signup} />
-      <div>
-        <p></p>
+      <div className="w-full md:w-1/2 flex items-center justify-center" style={{
+        marginBottom: "50px"
+      }}>
+        <Lottie animationData={signup} style={{ maxWidth: "100%" }} />
       </div>
 
       <div
-        className="text-black font-bold font-Josefin px-6 content-center"
+        className="text-black font-bold font-Josefin px-4 md:px-6 w-full md:w-1/2 py-6"
         style={{
-          marginRight: "40px",
-          lineHeight: "3rem",
+          lineHeight: "1.5rem",
           borderRadius: "0.9rem",
         }}
       >
         <div className="text-white">
-          <p className="text-3xl mb-10 ">Create an account 👋</p>
+          <p className="text-2xl md:text-3xl mb-4 md:mb-10">Create an account 👋</p>
           <p>Kindly Fill in your details</p>
         </div>
         <form onSubmit={handleSubmit} className="text-white">
-          <div
-            className=" text-white"
-            style={{
-              borderRadius: "20px",
-              width: "100%",
-            }}
-          >
+          <div className="text-white mb-4">
             <div>
               <label
-                className="text-[rbg(105, 111, 121)] text-[13px]"
+                className="text-[rbg(105, 111, 121)] text-xs md:text-[13px]"
                 htmlFor="firstName"
               >
                 FirstName*
               </label>
             </div>
             <input
-              className="w-80 my-20 border-none outline-none"
+              className="w-full border-none outline-none my-2"
               type="text"
               id="firstName"
               name="firstName"
@@ -102,17 +94,17 @@ const Signup = () => {
             />
           </div>
 
-          <div>
+          <div className="mb-4">
             <div>
               <label
                 htmlFor="lastName"
-                className="text-[rbg(105, 111, 121)] text-[13px]"
+                className="text-[rbg(105, 111, 121)] text-xs md:text-[13px]"
               >
                 LastName*
               </label>
             </div>
             <input
-              className="outline-none  w-80 my-20 "
+              className="outline-none w-full my-2"
               type="text"
               id="lastName"
               placeholder="Doe"
@@ -131,17 +123,17 @@ const Signup = () => {
             />
           </div>
 
-          <div>
+          <div className="mb-4">
             <div>
               <label
-                className="text-[rbg(105, 111, 121)] text-[13px]"
+                className="text-[rbg(105, 111, 121)] text-xs md:text-[13px]"
                 htmlFor="email"
               >
                 Email address*
               </label>
             </div>
             <input
-              className="outline-none text-sm w-80 my-20 "
+              className="outline-none text-sm w-full my-2"
               type="email"
               id="email"
               name="email"
@@ -160,49 +152,55 @@ const Signup = () => {
             />
           </div>
 
-          <div>
+          <div className="mb-4">
             <div>
               <label
-                className="text-[rbg(105, 111, 121)] text-[13px]"
+                className="text-[rbg(105, 111, 121)] text-xs md:text-[13px]"
                 htmlFor="password"
               >
                 Create Password*
               </label>
             </div>
-            <input
-              className="outline-none text-sm w-80 my-20 "
-              type={passwordShown ? "text" : "password"}
-              id="password"
-              name="password"
-              placeholder="********"
-              required
-              value={formData.password}
-              onChange={handleInput}
-              style={{
-                border: "1px solid rgb(30, 79, 137)",
-                backgroundColor: "rgb(30, 32, 37)",
-                borderRadius: "5px",
-                textAlign: "left",
-                lineHeight: "50px",
-                paddingLeft: "10px",
-              }}
-            />
-            <span onClick={handleShowPass} className="cursor-pointer">
-              {passwordShown ? "Hide" : "Show"}
-            </span>
+            <div className="relative">
+              <input
+                className="outline-none text-sm w-full my-2"
+                type={passwordShown ? "text" : "password"}
+                id="password"
+                name="password"
+                placeholder="********"
+                required
+                value={formData.password}
+                onChange={handleInput}
+                style={{
+                  border: "1px solid rgb(30, 79, 137)",
+                  backgroundColor: "rgb(30, 32, 37)",
+                  borderRadius: "5px",
+                  textAlign: "left",
+                  lineHeight: "50px",
+                  paddingLeft: "10px",
+                  paddingRight: "50px",
+                }}
+              />
+              <span 
+                onClick={handleShowPass} 
+                className="cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2"
+              >
+                {passwordShown ? "Hide" : "Show"}
+              </span>
+            </div>
           </div>
 
-          <div>
+          <div className="mb-6">
             <div>
               <label
-                className="text-[rbg(105, 111, 121)] text-[13px]"
+                className="text-[rbg(105, 111, 121)] text-xs md:text-[13px]"
                 htmlFor="nationality"
               >
                 Your Nationality*
               </label>
             </div>
             <input
-              className="outline-none w-80 my-20 "
+              className="outline-none w-full my-2"
               type="select"
               id="nationality"
               placeholder="Nigeria"
@@ -217,18 +215,22 @@ const Signup = () => {
                 textAlign: "left",
                 lineHeight: "50px",
                 paddingLeft: "10px",
-                marginBottom: "10px",
+                marginBottom: "50px"
               }}
             />
           </div>
-          <button className="cursor-pointer" type="submit" disabled={signingUp}>
+          <button 
+            className="cursor-pointer w-full md:w-auto" 
+            type="submit" 
+            disabled={signingUp}
+          >
             {signingUp ? (
-              <span>
-                <Lottie animationData={loggingIn} style={{ width: 30 }} />{" "}
+              <span className="flex justify-center items-center">
+                <Lottie animationData={loggingIn} style={{ width: 30 }} />
               </span>
             ) : (
               <span
-                className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
+                className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
                 style={{
                   backgroundColor: "rgb(105, 16, 87)",
                   color: "#fff",

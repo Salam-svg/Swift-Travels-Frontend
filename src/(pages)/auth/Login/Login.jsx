@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import loggingIn from "../../../assets/animations/SigninupAnimations/Interwind@1x-1.0s-200px-200px.json";
 
 const Login = () => {
-  const { login, LoggingIn } = useAuthContext();
+  const { login, LoggingIn, loadingAuth } = useAuthContext();
   const [formDates, setFormDates] = useState({
     email: "",
     password: "",
@@ -36,37 +36,31 @@ const Login = () => {
 
   return (
     <div
-      className="text-white flex justify-between h-130 bg-[rgb(21, 1, 39)] "
+      className="text-white flex flex-col md:flex-row justify-between "
       style={{
-        // backgroundColor: "rgb(21, 1, 39)",
-        width: "97%",
-        margin: "0 auto",
+        width: "95%",
+        maxWidth: "1200px",
+        margin: "3rem auto 5rem",
         borderRadius: "25px",
-        marginTop: "5.3rem",
         color: "white",
       }}
     >
-      <div>
+      <div className="w-full md:w-1/2 flex items-center justify-center" style={{
+        marginBottom: "150px"
+      }}>
         <Lottie
           animationData={loginAnimation}
-          style={{ width: 350, borderRadius: 10 }}
+          style={{ maxWidth: "100%", borderRadius: 10 }}
         />
       </div>
       <div
-        className="text-black font-bold font-Josefin px-6 content-center"
+        className="text-black font-bold font-Josefin px-4 md:px-6 w-full md:w-1/2 py-6 flex items-center"
         style={{
-          marginRight: "90px",
-          lineHeight: "3rem",
           borderRadius: "0.9rem",
-          marginTop: "-90px",
         }}
       >
-        <form className="text-white" onSubmit={handleSubmit}>
-          <div
-            style={{
-              marginBottom: "30px",
-            }}
-          >
+        <form className="text-white w-full" onSubmit={handleSubmit}>
+          <div className="mb-6">
             <input
               type="email"
               id="email"
@@ -74,10 +68,10 @@ const Login = () => {
               placeholder="Enter Your Email"
               value={formDates.email}
               onChange={handleInput}
+              className="w-full outline-none"
               style={{
                 border: "1px solid rgb(30, 79, 137)",
                 backgroundColor: "rgb(30, 32, 37)",
-                width: "315px",
                 borderRadius: "5px",
                 textAlign: "left",
                 lineHeight: "50px",
@@ -85,13 +79,9 @@ const Login = () => {
               }}
             />
           </div>
-          <div
-            style={{
-              marginBottom: "30px",
-            }}
-          >
+          <div className="mb-6 relative">
             <input
-              className="outline-none w-80 my-20 text-white "
+              className="outline-none w-full text-white"
               type={passwordShown ? "text" : "password"}
               id="password"
               name="password"
@@ -105,20 +95,29 @@ const Login = () => {
                 textAlign: "left",
                 lineHeight: "50px",
                 paddingLeft: "10px",
+                paddingRight: "50px",
+                marginBottom: "50px"
               }}
             />
-            <span className="cursor-pointer" onClick={handleShowPass}>
+            <span 
+              className="cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2" 
+              onClick={handleShowPass}
+            >
               {passwordShown ? "Hide" : "Show"}
             </span>
           </div>
-          <button className="cursor-pointer" type="submit" disabled={LoggingIn}>
-            {LoggingIn ? (
-              <span>
-                <Lottie animationData={loggingIn} style={{ width: 30 }} />{" "}
+          <button 
+            className="cursor-pointer w-full md:w-auto" 
+            type="submit" 
+            disabled={loadingAuth}
+          >
+            {loadingAuth ? (
+              <span className="flex justify-center items-center">
+                <Lottie animationData={loggingIn} style={{ width: 30 }} />
               </span>
             ) : (
               <span
-                className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
+                className="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
                 style={{
                   backgroundColor: "rgb(105, 16, 87)",
                   color: "#fff",

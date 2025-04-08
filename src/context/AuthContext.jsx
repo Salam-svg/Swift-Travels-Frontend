@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const login = async (formDates, callback) => {
-    setLoggingIn(true);
+    setLoadingAuth(true)
     try {
       const response = await fetch(`${baseUrl}/auth/login`, {
         method: "POST",
@@ -78,7 +78,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoggingIn(false);
+      setLoadingAuth(false);
     }
   };
   const logout = () => {
