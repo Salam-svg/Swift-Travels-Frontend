@@ -18,7 +18,7 @@ const Navbar = () => {
     >
       <div className="text-xl font-Josefin ">
         <h1 className="logo-Tag bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-pink-500 bg-clip-text text-transparent text-4xl font-bold cursor-pointer">
-          SWIFT-TRAVELS
+          <Link to="/">SWIFT-TRAVELS</Link>
         </h1>
       </div>
       <div>
