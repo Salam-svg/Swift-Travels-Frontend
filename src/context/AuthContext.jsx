@@ -97,13 +97,16 @@ const AuthProvider = ({ children }) => {
       console.log(`Profile data response` , response);
       const data = await response.json()
       if (data.status === "success") {
-        setUser(data.user); 
+        setUser(data.user)
+        localStorage.setItem("user", JSON.stringify(data.user)); 
         toast.success("Profile loaded successfully");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoadingAuth(false)
     }
   }
 
@@ -112,7 +115,6 @@ const AuthProvider = ({ children }) => {
     token,
     loadingAuth,
     signingUp,
-    loggingIn,
     Signup,
     login,
     logout,
