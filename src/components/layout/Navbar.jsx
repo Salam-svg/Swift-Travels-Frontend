@@ -11,7 +11,7 @@ const Navbar = () => {
       style={{
         width: "90%",
         margin: "auto",
-        // position: "sticky",
+        
         zIndex: 10000, 
         marginTop: "20px",
       }}
@@ -41,7 +41,7 @@ const Navbar = () => {
         {user ? (
           <div className="user-display flex items-center gap-2">
             <span className="user-Name text-white">
-              <Link to="/profile">
+              <Link to="/profile/dashboard">
                 Hello, {user.lastName} {user.firstName}
               </Link>
             </span>

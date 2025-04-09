@@ -14,12 +14,12 @@ import FlightProvider from "./context/SearchFlights";
 import Notfound from "./components/layout/Notfound";
 import Footer from "./components/layout/Footer";
 import SmoothScroll from "./context/SmoothScroll"
-import Profile from "./(pages)/private-pages/Profile/Profile";
 import FlightResults from "./(pages)/public-pages/FlightsResults/FlightsResults";
 import BookFlights from "./(pages)/public-pages/BookFlights/BookFlights";
 import PaymentForm from "./(pages)/public-pages/PayForFlight/PayForFlight";
 import BookingResult from "./(pages)/public-pages/BookingResult/BookingResult";
 import PaymentResult from "./(pages)/public-pages/PaymentResults/PaymentResult";
+import Dashboard from "./(pages)/private-pages/Profile/Profile";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -112,7 +112,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/dashboard" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
               <Route path="/searchFlights" element={<FlightSearchForm />} />
               <Route path="/flightsResults" element={<FlightResults />} />
@@ -120,6 +120,7 @@ const App = () => {
               <Route path="/flightsPayment" element={< PaymentForm />}/>
               <Route path="/bookingResult" element={< BookingResult />}/>
               <Route path="/paymentResult" element={ < PaymentResult />}/>
+
               <Route path="*" element={<Notfound />} />
             </Routes>
             <Footer />

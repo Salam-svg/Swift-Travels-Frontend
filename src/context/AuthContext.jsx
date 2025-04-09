@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -12,7 +13,6 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState();
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [signingUp, setSigningUp] = useState(false);
-  const [loggingIn, setLoggingIn] = useState(false);
   const baseUrl = import.meta.env.VITE_BASE_URL
   
   
@@ -23,7 +23,8 @@ const AuthProvider = ({ children }) => {
 
     if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
-      setToken(storedToken);  
+      setToken(storedToken); 
+      Profile() 
     }
     setLoadingAuth(false);
   }, []);
@@ -89,6 +90,23 @@ const AuthProvider = ({ children }) => {
     toast.success("Logged out successfully");
   };
 
+  const Profile = async () => {
+    setLoadingAuth(true)
+    try {
+      const response = await axios.get(`${baseUrl}/user/Profile`)
+      console.log(`Profile data response` , response);
+      const data = await response.json()
+      if (data.status === "success") {
+        setUser(data.user); 
+        toast.success("Profile loaded successfully");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const value = {
     user,
     token,
@@ -98,6 +116,7 @@ const AuthProvider = ({ children }) => {
     Signup,
     login,
     logout,
+    Profile
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
