@@ -93,11 +93,7 @@ const AuthProvider = ({ children }) => {
   const Profile = async () => {
     setLoadingAuth(true)
     try {
-      const response = await axios.get(`${baseUrl}/user/Profile`,{
-        headers: {
-          Authorization: `Bearer ${token}`, 
-        },
-      })
+      const response = await axios.get(`${baseUrl}/user/Profile`)
       console.log(`Profile data response` , response);
       const data = await response.data
       if (data.status === "success") {
