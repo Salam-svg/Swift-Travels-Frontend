@@ -19,7 +19,7 @@ import BookFlights from "./(pages)/public-pages/BookFlights/BookFlights";
 import PaymentForm from "./(pages)/public-pages/PayForFlight/PayForFlight";
 import BookingResult from "./(pages)/public-pages/BookingResult/BookingResult";
 import PaymentResult from "./(pages)/public-pages/PaymentResults/PaymentResult";
-import Dashboard from "./(pages)/private-pages/Profile/Profile";
+
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -112,7 +112,6 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/profile/dashboard" element={<Dashboard />} />
               <Route path="/login" element={<Login />} />
               <Route path="/searchFlights" element={<FlightSearchForm />} />
               <Route path="/flightsResults" element={<FlightResults />} />

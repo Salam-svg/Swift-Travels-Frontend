@@ -23,8 +23,7 @@ const AuthProvider = ({ children }) => {
 
     if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
-      setToken(storedToken); 
-      Profile() 
+      setToken(storedToken);  
     }
     setLoadingAuth(false);
   }, []);
@@ -90,25 +89,7 @@ const AuthProvider = ({ children }) => {
     toast.success("Logged out successfully");
   };
 
-  const Profile = async () => {
-    setLoadingAuth(true)
-    try {
-      const response = await axios.get(`${baseUrl}/user/Profile`)
-      console.log(`Profile data response` , response);
-      const data = await response.data
-      if (data.status === "success") {
-        setUser(data.user)
-        localStorage.setItem("user", JSON.stringify(data.user)); 
-        toast.success("Profile loaded successfully");
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-    }finally{
-      setLoadingAuth(false)
-    }
-  }
+  
 
   const value = {
     user,
@@ -118,7 +99,7 @@ const AuthProvider = ({ children }) => {
     Signup,
     login,
     logout,
-    Profile
+
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
