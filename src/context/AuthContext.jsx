@@ -95,7 +95,7 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await axios.get(`${baseUrl}/user/Profile`)
       console.log(`Profile data response` , response);
-      const data = await response.json()
+      const data = await response.data
       if (data.status === "success") {
         setUser(data.user)
         localStorage.setItem("user", JSON.stringify(data.user)); 
