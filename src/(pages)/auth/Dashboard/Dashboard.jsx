@@ -98,6 +98,7 @@ const Dashboard = () => {
                   height: "7rem",
                   borderRadius: "30rem",
                   objectFit: "cover",
+                  
                 }}
               />
             )}
@@ -130,7 +131,7 @@ const Dashboard = () => {
                 <button
                   onClick={handleUpload}
                   disabled={!selectedFile}
-                  className={`p-2 rounded-md flex items-center ${
+                  className={`p-2 rounded-md flex items-center cursor-pointer ${
                     selectedFile
                       ? "bg-blue-600 hover:bg-blue-700"
                       : "bg-gray-600 cursor-not-allowed"
