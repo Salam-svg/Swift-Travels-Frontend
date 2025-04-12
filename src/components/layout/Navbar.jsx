@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
+import { useDashboardContext } from "../../context/Dashboard"
 import "../../styles/Navbar.css"
 
 const Navbar = () => {
   const { user, logout } = useAuthContext();
+  const { } = useDashboardContext
 
   return (
     <div
@@ -40,9 +42,24 @@ const Navbar = () => {
       <div className="flex gap-3">
         {user ? (
           <div className="user-display flex items-center gap-2">
-            <span className="user-Name text-white">
-              <Link to="/profile/dashboard">
-                Hello, {user.lastName} {user.firstName}
+            <span className="user-Name flex text-center text-white"
+              style={{
+                alignItems: "center",
+                gap: "0.9rem"
+              }}
+            >
+            <img
+                src={user.profilePicture}
+                alt="Profile"
+                className=" mx-auto mb-6 border-2 "
+                style={{
+                  width: "2.9rem",
+                  height: "2.9rem",
+                  borderRadius: "30rem",
+                  objectFit: "cover",
+                }}/>
+              <Link to="/user/dashboard">
+                {user.lastName} {user.firstName}
               </Link>
             </span>
             <button

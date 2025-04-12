@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import {  Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LocomotiveScroll from "locomotive-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,14 +13,14 @@ import FlightSearchForm from "./(pages)/public-pages/searchFlights/Search";
 import FlightProvider from "./context/SearchFlights";
 import Notfound from "./components/layout/Notfound";
 import Footer from "./components/layout/Footer";
-import SmoothScroll from "./context/SmoothScroll"
+import SmoothScroll from "./context/SmoothScroll";
 import FlightResults from "./(pages)/public-pages/FlightsResults/FlightsResults";
 import BookFlights from "./(pages)/public-pages/BookFlights/BookFlights";
 import PaymentForm from "./(pages)/public-pages/PayForFlight/PayForFlight";
 import BookingResult from "./(pages)/public-pages/BookingResult/BookingResult";
 import PaymentResult from "./(pages)/public-pages/PaymentResults/PaymentResult";
-
-
+import Dashboard from "./(pages)/auth/Dashboard/Dashboard";
+import DashboardProvider from "./context/Dashboard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,9 +28,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
-
   useEffect(() => {
-
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -43,7 +41,6 @@ const App = () => {
     }, 50);
     return () => clearInterval(timer);
   }, []);
-
 
   if (loading) {
     return (
@@ -64,10 +61,10 @@ const App = () => {
   }
 
   return (
-    <div >
-        
-        <AuthProvider>
-          <FlightProvider>
+    <div>
+      <AuthProvider>
+        <FlightProvider>
+          <DashboardProvider>
             <Navbar />
             <Toaster
               position="top-left"
@@ -116,17 +113,16 @@ const App = () => {
               <Route path="/searchFlights" element={<FlightSearchForm />} />
               <Route path="/flightsResults" element={<FlightResults />} />
               <Route path="/bookFlights" element={<BookFlights />} />
-              <Route path="/flightsPayment" element={< PaymentForm />}/>
-              <Route path="/bookingResult" element={< BookingResult />}/>
-              <Route path="/paymentResult" element={ < PaymentResult />}/>
-
+              <Route path="/flightsPayment" element={<PaymentForm />} />
+              <Route path="/bookingResult" element={<BookingResult />} />
+              <Route path="/paymentResult" element={<PaymentResult />} />
+              <Route path="/user/dashboard" element={<Dashboard />} />
               <Route path="*" element={<Notfound />} />
             </Routes>
             <Footer />
-          </FlightProvider>
-        </AuthProvider>
-
-
+          </DashboardProvider>
+        </FlightProvider>
+      </AuthProvider>
     </div>
   );
 };
