@@ -6,6 +6,7 @@ import Partners from "../Partners/Partners";
 import FlightSearchForm from "../searchFlights/Search";
 import TravelBanner from "../TravelBanner/TravelBanner";
 import Connect from "../Connect/Connect";
+import TravelDarkMode from "../AboutUs/AboutUs";
 
 
 
@@ -16,6 +17,7 @@ const Home = () => {
     <div data-scroll-section id="home-section">
       <Hero />
       <FlightSearchForm />
+      <TravelDarkMode/>
       <Services />
       <Partners />
       <TravelBanner/>

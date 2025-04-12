@@ -4,9 +4,10 @@ import { useDashboardContext } from "../../context/Dashboard"
 import "../../styles/Navbar.css"
 
 const Navbar = () => {
-  const { user, logout } = useAuthContext();
-  const { } = useDashboardContext
-
+  const {  logout } = useAuthContext();
+  const {
+    user
+  } = useDashboardContext();
   return (
     <div
       className="navbar-Div flex justify-between items-center font-Josefin text-white shadow-lg "
@@ -59,7 +60,7 @@ const Navbar = () => {
                   objectFit: "cover",
                 }}/>
               <Link to="/user/dashboard">
-                {user.lastName} {user.firstName}
+              {user?.name || "N/A"}
               </Link>
             </span>
             <button

@@ -148,33 +148,28 @@ const FlightProvider = ({ children }) => {
         }
       );
 
+      const booking = response.data?.booking;
+
+      setBookingDetails(booking);
+      setSelectedBooking(booking);
+
+
+     if (response.status >= 200 && response.status < 300 && booking) {
+      setSelectedBooking(booking);
       setBookingDetails(response.data);
-      setSelectedBooking(response.data.booking);
 
+      localStorage.setItem("selectedBooking", JSON.stringify(booking));
 
-      if (response.status >= 200 && response.status < 300) {
-        toast.success("Payment Successful & Booking Confirmed");
+      toast.success("Payment Successful & Booking Confirmed");
 
-        if (response.status >= 200 && response.status < 300) {
-          const booking = response.data?.booking;
-    
-          if (booking) {
-            setSelectedBooking(booking);
-            localStorage.setItem("selectedBooking", JSON.stringify(booking));
-          }
-    
-          setBookingDetails(response.data);
-          
-          toast.success("Payment Successful & Booking Confirmed");
+      console.log("Saved booking to localStorage:", booking);
+      console.log("Payment response:", response.data);
 
-          console.log("Saved booking to localStorage:", booking);
-          console.log("Payment response:", response.data);
-          return response.data;
-        } else {
-          toast.error("Payment failed");
-          return null;
-        }
-      }
+      return response.data;
+    } else {
+      toast.error("Payment failed or booking data missing");
+      return null;
+    }
     } catch (err) {
       console.error("Payment error:", err);
       toast.error("Payment failed. Please try again.");
