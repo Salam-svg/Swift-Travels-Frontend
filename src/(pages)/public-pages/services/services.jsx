@@ -15,7 +15,7 @@ const Services = () => {
     { id: 10, image: "https://images.pexels.com/photos/14549456/pexels-photo-14549456.jpeg?auto=compress&cs=tinysrgb&w=600", height: 400 },
   ];
   return <div style={{
-    marginTop: "5.3rem",
+    marginTop: " .3rem",
   }}>
     <Masonry data={data} />
   </div>;
