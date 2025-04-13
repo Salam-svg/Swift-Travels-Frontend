@@ -7,6 +7,8 @@ import FlightSearchForm from "../searchFlights/Search";
 import TravelBanner from "../TravelBanner/TravelBanner";
 import Connect from "../Connect/Connect";
 import TravelDarkMode from "../AboutUs/AboutUs";
+import FAQAccordion from "../FAQ/FAQ";
+import JourneyCarousel from "../RandomImages/Random";
 
 
 
@@ -18,11 +20,12 @@ const Home = () => {
       <Hero />
       <FlightSearchForm />
       <TravelDarkMode/>
+      <JourneyCarousel/>
       <Services />
       <Partners />
       <TravelBanner/>
       <Connect/>
-  
+      <FAQAccordion/>
     </div>
   );
 };

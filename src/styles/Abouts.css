@@ -1,0 +1,9 @@
+@media (max-width: 476px) {
+    .left-section{
+        display: block;
+        margin-bottom: 40px;
+    }
+    .right-section{
+        margin-top: 20px;
+    }
+}

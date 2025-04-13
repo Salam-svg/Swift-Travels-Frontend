@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import "../../../styles/Abouts.css"
 
 export default function TravelDarkMode() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const features = [
     {
       id: 1,
@@ -18,7 +19,7 @@ export default function TravelDarkMode() {
       description: "Locate flights that align with your schedule and budget effortlessly with our intuitive interface.",
       badge: null,
       imageAlt: "Person searching flights on laptop",
-      img : "https://images.pexels.com/photos/109371/pexels-photo-109371.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      img: "https://images.pexels.com/photos/109371/pexels-photo-109371.jpeg?auto=compress&cs=tinysrgb&w=1200"
     },
     {
       id: 3,
@@ -26,7 +27,7 @@ export default function TravelDarkMode() {
       description: "Compare prices across multiple airlines and find the best deals for your travel budget.",
       badge: "New",
       imageAlt: "Price comparison chart",
-      img : "https://images.pexels.com/photos/3183174/pexels-photo-3183174.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      img: "https://images.pexels.com/photos/3183174/pexels-photo-3183174.jpeg?auto=compress&cs=tinysrgb&w=1200"
     }
   ];
 
@@ -44,7 +45,8 @@ export default function TravelDarkMode() {
       margin: "0 auto",
       marginTop: "90px",
     }}>
-      <div className="max-w-6xl flex mx-auto">
+      <div className="left-section  max-w-6xl flex mx-auto">
+        {/* Left Section */}
         <div className="flex-1">
           <button className="bg-transparent border border-gray-600 text-gray-300 px-5 py-2 rounded-full text-sm hover:bg-gray-800 transition-all duration-300 mb-5" style={{
             border: "2px solid white",
@@ -81,9 +83,10 @@ export default function TravelDarkMode() {
           </button>
         </div>
 
-        <div className="flex-1 relative ml-12">
-          <div className="grid grid-cols-2 gap-8">
-            {features.slice(currentSlide, currentSlide + 2).map((feature) => (
+        {/* Right Section */}
+        <div className="right-section flex-1 relative ml-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {features.slice(currentSlide, currentSlide + 2).map((feature, index) => (
               <div 
                 key={feature.id}
                 className="relative group transition-all duration-300"
@@ -97,10 +100,9 @@ export default function TravelDarkMode() {
                   <img 
                     src={feature.img} 
                     alt={feature.imageAlt}
-                    className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-                    style={{
-                      height: "20%"
-                    }}
+                    className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
+                      index === 0 ? 'h-96' : 'h-64'
+                    }`}
                   />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
@@ -109,21 +111,21 @@ export default function TravelDarkMode() {
             ))}
           </div>
           
-          <div className="flex justify-end gap-3 ">
+          <div className="flex justify-end gap-3 mt-8">
             <button 
               onClick={prevSlide}
-              className="font-Josefin  md:mt-0  md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30 cursor-pointer"
-            style={{
-              border: "2px solid white",
-              padding: ".3rem .7rem",
-              borderRadius: "20px"
-            }}
+              className="font-Josefin md:mt-0 md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30 cursor-pointer"
+              style={{
+                border: "2px solid white",
+                padding: ".3rem .7rem",
+                borderRadius: "20px"
+              }}
             >
               ←
             </button>
             <button 
               onClick={nextSlide}
-              className=" md:mt-0  md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30 cursor-pointer "
+              className="md:mt-0 md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30 cursor-pointer"
               style={{
                 border: "2px solid white",
                 padding: ".3rem .7rem",
