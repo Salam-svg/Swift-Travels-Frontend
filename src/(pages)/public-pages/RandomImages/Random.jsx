@@ -104,8 +104,7 @@ export default function JourneyCarousel() {
                       alt={item.alt}
                       className="w-full h-full  transition-transform duration-500 group-hover:scale-105"
                       style={{
-                        width: "200rem",
-                        
+                        width: "205rem",
                         gap: "1rem",
                         paddingLeft:"50px"
                       }}
