@@ -8,13 +8,13 @@ export default function JourneyCarousel() {
       id: 1,
       alt: "Laptop showing flight booking interface",
       caption: "Easy Flight Booking",
-      img: "https://images.pexels.com/photos/386000/pexels-photo-386000.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      img: "https://images.pexels.com/photos/3225528/pexels-photo-3225528.jpeg?auto=compress&cs=tinysrgb&w=1200"
     },
     {
       id: 2,
       alt: "Person searching for flights on laptop",
       caption: "Search Flights",
-      img: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=1200"
+      img: "https://images.pexels.com/photos/1028225/pexels-photo-1028225.jpeg?auto=compress&cs=tinysrgb&w=1200"
     },
     {
       id: 3,
@@ -44,7 +44,7 @@ export default function JourneyCarousel() {
     setCurrentIndex((prev) => (prev === 0 ? carouselItems.length - 1 : prev - 1));
   };
 
-  // Auto-advance carousel
+  
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
@@ -64,9 +64,10 @@ export default function JourneyCarousel() {
   const visibleIndices = getVisibleIndices();
 
   return (
-    <div className=" py-12 px-4" style={{
+    <div className=" " style={{
         width: "86%",
-        margin: "0 auto"
+        margin: "0 auto",
+        marginBottom: "50px"
     }}>
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-white text-center mb-12"
@@ -80,7 +81,10 @@ export default function JourneyCarousel() {
         <div className="relative">
           <button 
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-10 bg-gray-800 hover:bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center focus:outline-none transition-colors duration-300"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-10 bg-gray-800 hover:bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center  transition-all duration-300 shadow-lg hover:shadow-blue-900/30 cursor-pointer"
+            style={{
+              borderRadius: "20px"
+            }}
             aria-label="Previous slide"
           >
             ←
@@ -92,19 +96,21 @@ export default function JourneyCarousel() {
                 <div key={item.id} className="min-w-full md:min-w-1/3 lg:min-w-1/5 px-2" style={{
                     gap: "12rem"
                 }}>
-                  <div className="relative rounded-lg overflow-hidden border border-gray-700 h-56 md:h-64 group"
+                  <div className="relative rounded-lg overflow-hidden border  h-56 md:h-64 group"
                 
                   >
                     <img 
                       src={item.img} 
                       alt={item.alt}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full  transition-transform duration-500 group-hover:scale-105"
                       style={{
+                        width: "200rem",
+                        
                         gap: "1rem",
                         paddingLeft:"50px"
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div className="absolute inset-0  opacity-70"></div>
                     <div className="absolute bottom-0 left-19 right-0 p-4 text-white">
                       <p className="font-medium"
                       style={{
@@ -120,7 +126,10 @@ export default function JourneyCarousel() {
           
           <button 
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-10 bg-gray-800 hover:bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center focus:outline-none transition-colors duration-300"
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-10bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900  text-white rounded-full w-10 h-10 flex items-center justify-center  transition-all duration-300 shadow-lg hover:shadow-blue-900/30 cursor-pointer"
+            style={{
+              borderRadius: "20px"
+            }}
             aria-label="Next slide"
           >
             →

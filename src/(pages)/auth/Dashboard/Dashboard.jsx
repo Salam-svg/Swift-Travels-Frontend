@@ -195,51 +195,6 @@ const Dashboard = () => {
               <p className="text-gray-500 mt-3 text-sm">No payments found.</p>
             )}
           </div>
-
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 h-full">
-            <h2 className="text-lg font-semibold text-blue-400 flex items-center mb-4">
-              <DollarSign className="mr-2 h-5 w-5" />
-              Refund
-            </h2>
-            <p className="text-gray-400">
-              Total Refunds:{" "}
-              <span className="text-white">{refunds.length}</span>
-            </p>
-            {refunds.length > 0 ? (
-              <ul className="mt-3 space-y-2">
-                {refunds.map((refund) => (
-                  <li key={refund.id} className="text-white text-sm">
-                    {refund.currency} {refund.amount} -{" "}
-                    {formatDate(refund.date)} - {refund.status}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-500 mt-3 text-sm">No refunds found.</p>
-            )}
-          </div>
-
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 h-full">
-            <h2 className="text-lg font-semibold text-blue-400 flex items-center mb-4">
-              <Star className="mr-2 h-5 w-5" />
-              Reviews
-            </h2>
-            <p className="text-gray-400">
-              Total Reviews:{" "}
-              <span className="text-white">{reviews.length}</span>
-            </p>
-            {reviews.length > 0 ? (
-              <ul className="mt-3 space-y-2">
-                {reviews.map((review) => (
-                  <li key={review.id} className="text-white text-sm">
-                    Rating: {review.rating}/5 - {review.comment}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-500 mt-3 text-sm">No reviews found.</p>
-            )}
-          </div>
         </div>
       </div>
     </div>

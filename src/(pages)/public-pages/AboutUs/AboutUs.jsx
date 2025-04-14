@@ -43,7 +43,7 @@ export default function TravelDarkMode() {
     <div className="font-Josefin text-white p-6 min-h-screen" style={{
       width: "86%",
       margin: "0 auto",
-      marginTop: "90px",
+      marginTop: "50px",
     }}>
       <div className="left-section  max-w-6xl flex mx-auto">
         {/* Left Section */}
