@@ -4,7 +4,7 @@ import { useDashboardContext } from "../../context/Dashboard"
 import "../../styles/Navbar.css"
 
 const Navbar = () => {
-  const {  logout } = useAuthContext();
+  const { user: logout } = useAuthContext();
   const {
     user
   } = useDashboardContext();
