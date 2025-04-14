@@ -21,6 +21,7 @@ import BookingResult from "./(pages)/public-pages/BookingResult/BookingResult";
 import PaymentResult from "./(pages)/public-pages/PaymentResults/PaymentResult";
 import Dashboard from "./(pages)/auth/Dashboard/Dashboard";
 import DashboardProvider from "./context/Dashboard";
+import ProfilePicProvider from "./context/ProfilePicContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,61 +66,63 @@ const App = () => {
       <AuthProvider>
         <FlightProvider>
           <DashboardProvider>
-            <Navbar />
-            <Toaster
-              position="top-left"
-              richColors
-              visibleToasts={1}
-              theme="dark"
-              toastOptions={{
-                style: {
-                  background: "#18181B",
-                  color: "#E4E4E7",
-                  border: "1px solid #27272A",
-                  padding: "12px",
-                  borderRadius: "8px",
-                },
-                duration: 4000,
-                success: {
+            <ProfilePicProvider>
+              <Navbar />
+              <Toaster
+                position="top-left"
+                richColors
+                visibleToasts={1}
+                theme="dark"
+                toastOptions={{
                   style: {
-                    background: "#16A34A",
-                    color: "#fff",
+                    background: "#18181B",
+                    color: "#E4E4E7",
+                    border: "1px solid #27272A",
+                    padding: "12px",
+                    borderRadius: "8px",
                   },
-                },
-                error: {
-                  style: {
-                    background: "#DC2626",
-                    color: "#fff",
+                  duration: 4000,
+                  success: {
+                    style: {
+                      background: "#16A34A",
+                      color: "#fff",
+                    },
                   },
-                },
-                warning: {
-                  style: {
-                    background: "#D97706",
-                    color: "#fff",
+                  error: {
+                    style: {
+                      background: "#DC2626",
+                      color: "#fff",
+                    },
                   },
-                },
-                info: {
-                  style: {
-                    background: "#2563EB",
-                    color: "#fff",
+                  warning: {
+                    style: {
+                      background: "#D97706",
+                      color: "#fff",
+                    },
                   },
-                },
-              }}
-            />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/searchFlights" element={<FlightSearchForm />} />
-              <Route path="/flightsResults" element={<FlightResults />} />
-              <Route path="/bookFlights" element={<BookFlights />} />
-              <Route path="/flightsPayment" element={<PaymentForm />} />
-              <Route path="/bookingResult" element={<BookingResult />} />
-              <Route path="/paymentResult" element={<PaymentResult />} />
-              <Route path="/user/dashboard" element={<Dashboard />} />
-              <Route path="*" element={<Notfound />} />
-            </Routes>
-            <Footer />
+                  info: {
+                    style: {
+                      background: "#2563EB",
+                      color: "#fff",
+                    },
+                  },
+                }}
+              />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/searchFlights" element={<FlightSearchForm />} />
+                <Route path="/flightsResults" element={<FlightResults />} />
+                <Route path="/bookFlights" element={<BookFlights />} />
+                <Route path="/flightsPayment" element={<PaymentForm />} />
+                <Route path="/bookingResult" element={<BookingResult />} />
+                <Route path="/paymentResult" element={<PaymentResult />} />
+                <Route path="/user/dashboard" element={<Dashboard />} />
+                <Route path="*" element={<Notfound />} />
+              </Routes>
+              <Footer />
+            </ProfilePicProvider>
           </DashboardProvider>
         </FlightProvider>
       </AuthProvider>

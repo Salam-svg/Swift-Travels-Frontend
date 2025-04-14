@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
-import { useDashboardContext } from "../../context/Dashboard"
-import "../../styles/Navbar.css"
+import { useProfilePicContext } from "../../context/ProfilePicContext";
+import "../../styles/Navbar.css";
+import { useEffect } from "react";
 
 const Navbar = () => {
-  const { user: logout } = useAuthContext();
-  const {
-    user
-  } = useDashboardContext();
+  const { user, logout } = useAuthContext();
+  const { profilePic, getProfilePic } = useProfilePicContext();
+  console.log("profilePic context:", profilePic);
+
+
+  useEffect(() => {
+    if (user) {
+      getProfilePic();
+    }
+  }, [user]);
   return (
     <div
       className="navbar-Div flex justify-between items-center font-Josefin text-white shadow-lg "
       style={{
         width: "90%",
         margin: "auto",
-        
-        zIndex: 10000, 
+
+        zIndex: 10000,
         marginTop: "20px",
       }}
     >
@@ -40,27 +47,32 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+
       <div className="flex gap-3">
+        {profilePic?.user?.profilePicture && (
+          <img
+            src={profilePic.user.profilePicture}
+            alt="Profile"
+            className=" mx-auto mb-6 border-2 "
+            style={{
+              width: "9rem",
+              height: "3rem",
+              borderRadius: "30rem",
+              objectFit: "cover",
+            }}
+          />
+        )}
         {user ? (
           <div className="user-display flex items-center gap-2">
-            <span className="user-Name flex text-center text-white"
+            <span
+              className="user-Name flex text-center text-white"
               style={{
                 alignItems: "center",
-                gap: "0.9rem"
+                // gap: "0.9rem"
               }}
             >
-            <img
-                src={user.profilePicture}
-                alt="Profile"
-                className=" mx-auto mb-6 border-2 "
-                style={{
-                  width: "2.9rem",
-                  height: "2.9rem",
-                  borderRadius: "30rem",
-                  objectFit: "cover",
-                }}/>
               <Link to="/user/dashboard">
-              {user?.name || "N/A"}
+                {user.lastName} {user.firstName}
               </Link>
             </span>
             <button
@@ -74,7 +86,7 @@ const Navbar = () => {
               }}
               onClick={logout}
             >
-             <Link to="/">Logout</Link>
+              <Link to="/">Logout</Link>
             </button>
           </div>
         ) : (

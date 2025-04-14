@@ -71,9 +71,9 @@ const DashboardProvider = ({ children }) => {
   const uploadProfilePicture = async (file) => {
     setLoading(true);
     try {
-      const formData = new FormData();
+      
+const formData = new FormData();
       formData.append("profilePicture", file);
-
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,

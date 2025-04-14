@@ -2,13 +2,10 @@
 import { useAuthContext } from "../../../context/AuthContext";
 import { useDashboardContext } from "../../../context/Dashboard";
 import {
-  Loader2,
-  LogOut,
+  
   User,
   Plane,
   CreditCard,
-  DollarSign,
-  Star,
   Upload,
 } from "lucide-react";
 import DashboardAnimations from "../../../assets/animations/DashboardAnimations/Animation - 1744403522281.json";
@@ -17,14 +14,11 @@ import Lottie from "lottie-react";
 import { useState } from "react";
 
 const Dashboard = () => {
-  const { user: authUser, logout } = useAuthContext();
   const {
     user,
     statistics,
     recentBookings,
     recentPayments,
-    refunds,
-    reviews,
     loading,
     uploadProfilePicture,
   } = useDashboardContext();
