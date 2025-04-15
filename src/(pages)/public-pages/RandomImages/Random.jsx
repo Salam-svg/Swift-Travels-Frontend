@@ -117,7 +117,7 @@ export default function JourneyCarousel() {
                 <div key={`${item.id}-${index}`} className="min-w-full px-2">
                   <div className="relative rounded-lg overflow-hidden border h-96 w-96 group">
                     <img
-                      src={item.img}
+                      src={item.img}  
                       alt={item.alt}
                       className=" object-cover transition-transform duration-500 group-hover:scale-105"
                     />
