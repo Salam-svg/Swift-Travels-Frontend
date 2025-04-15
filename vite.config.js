@@ -9,27 +9,8 @@ export default defineConfig({
     tailwindcss(),
     ["react-refresh/babel", { "skipEnvCheck": true }]
   ],
-  theme: {
-    extend: {
-      animation: {
-        'border-flow': 'border-flow 3s ease infinite',
-      },
-      keyframes: {
-        'border-flow': {
-          '0%, 100%': { 
-            backgroundPosition: '0% 50%' 
-          },
-          '50%': { 
-            backgroundPosition: '100% 50%' 
-          }
-        }
-      }
-    },
-  },
-  variants: {
-    extend: {
-      backgroundPosition: ['group-hover']
-    }
+  build: {
+    outDir: 'dist', 
   },
 
 })
