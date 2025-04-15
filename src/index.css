@@ -25,47 +25,6 @@ body {
   @apply text-[rgb(255,255,255)];
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-/* styles/global.css */
-:root {
-  --nav-height: 80px;
-  --scroll-ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Reset browser defaults */
-html {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  overscroll-behavior: none;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-/* Smooth Scroll Container */
-.scroll-container {
-  perspective: 1px;
-  transform-style: preserve-3d;
-}
-
-/* Main Content Padding */
-.main-content {
-  padding-top: var(--nav-height);
-  min-height: 100vh;
-}
-
 /* Navbar Fix */
 .navbar {
   position: fixed;
@@ -78,35 +37,7 @@ html {
   backdrop-filter: blur(10px);
 }
 
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-container {
-    transform: none !important;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
-}
-html.has-scroll-smooth {
-  overflow: hidden;
+html {
+  scroll-behavior: smooth;
 }
 
-[data-scroll-container] {
-  will-change: transform;
-}
-
-[data-scroll-section] {
-  position: relative;
-}
-html.has-scroll-smooth {
-  overflow: hidden;
-}
-
-html.has-scroll-dragging {
-  user-select: none;
-}
-
-[data-scroll-container] {
-  min-height: 100vh;
-}

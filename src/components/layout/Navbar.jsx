@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
-import { useProfilePicContext } from "../../context/ProfilePicContext";
+import { useDashboardContext } from "../../context/Dashboard";
 import "../../styles/Navbar.css";
 import { useEffect } from "react";
 
 const Navbar = () => {
   const { user, logout } = useAuthContext();
-  const { profilePic, getProfilePic } = useProfilePicContext();
-  console.log("profilePic context:", profilePic);
+  const { user: dashboardUser } = useDashboardContext();
+  
+
 
 
   useEffect(() => {
-    if (user) {
+    if (user?.token) {
       getProfilePic();
     }
   }, [user]);
@@ -48,53 +49,38 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="flex gap-3">
-        {profilePic?.user?.profilePicture && (
-          <img
-            src={profilePic.user.profilePicture}
-            alt="Profile"
-            className=" mx-auto mb-6 border-2 "
-            style={{
-              width: "9rem",
-              height: "3rem",
-              borderRadius: "30rem",
-              objectFit: "cover",
-            }}
-          />
-        )}
+      <div className="flex items-center gap-4">
         {user ? (
-          <div className="user-display flex items-center gap-2">
-            <span
-              className="user-Name flex text-center text-white"
-              style={{
-                alignItems: "center",
-                // gap: "0.9rem"
-              }}
+          <div className="flex items-center gap-3">
+            <Link
+              to="/user/dashboard"
+              className="flex items-center gap-2 text-white hover:text-blue-300"
             >
-              <Link to="/user/dashboard">
+              {/* Profile Picture */}
+              {dashboardUser?.profilePicture ? (
+                <img
+                  src={dashboardUser.profilePicture}
+                  alt={`${user.firstName} ${user.lastName}`}
+                  style={{
+                    width: "3rem",
+                    height: "3rem",
+                    objectFit: "cover",
+                    borderRadius: "20px"
+                  }}
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white text-sm">
+                  {user.firstName?.[0]}
+                  {user.lastName?.[0]}
+                </div>
+              )}
+              <span>
                 {user.lastName} {user.firstName}
-              </Link>
-            </span>
+              </span>
+            </Link>
             <button
-              className="Logout-btn  md:mt-0  md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
-              style={{
-                backgroundColor: "rgb(105, 16, 87)",
-                color: "#fff",
-                padding: "0.5rem 1rem",
-                borderRadius: "0.5rem",
-                border: "none",
-              }}
+              type="button"
               onClick={logout}
-            >
-              <Link to="/">Logout</Link>
-            </button>
-          </div>
-        ) : (
-          <>
-            <button>
-              <Link to="/signup">Register</Link>
-            </button>
-            <button
               className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
               style={{
                 backgroundColor: "rgb(105, 16, 87)",
@@ -102,11 +88,43 @@ const Navbar = () => {
                 padding: "0.5rem 1rem",
                 borderRadius: "0.5rem",
                 border: "none",
+                cursor: "pointer",
               }}
             >
-              <Link to="/login">LogIn</Link>
+              Logout
             </button>
-          </>
+          </div>
+        ) : (
+          <div className="flex gap-3">
+            <Link
+              to="/signup"
+              className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
+          style={{
+            backgroundColor: "rgb(105, 16, 87)",
+            color: "#fff",
+            padding: "0.5rem 1rem",
+            borderRadius: "0.5rem",
+            border: "none",
+            cursor: "pointer",
+          }}
+            >
+              Register
+            </Link>
+            <Link
+              to="/login"
+              className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
+          style={{
+            backgroundColor: "rgb(105, 16, 87)",
+            color: "#fff",
+            padding: "0.5rem 1rem",
+            borderRadius: "0.5rem",
+            border: "none",
+            cursor: "pointer",
+          }}
+            >
+              LogIn
+            </Link>
+          </div>
         )}
       </div>
     </div>

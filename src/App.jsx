@@ -13,7 +13,6 @@ import FlightSearchForm from "./(pages)/public-pages/searchFlights/Search";
 import FlightProvider from "./context/SearchFlights";
 import Notfound from "./components/layout/Notfound";
 import Footer from "./components/layout/Footer";
-import SmoothScroll from "./context/SmoothScroll";
 import FlightResults from "./(pages)/public-pages/FlightsResults/FlightsResults";
 import BookFlights from "./(pages)/public-pages/BookFlights/BookFlights";
 import PaymentForm from "./(pages)/public-pages/PayForFlight/PayForFlight";
@@ -21,13 +20,27 @@ import BookingResult from "./(pages)/public-pages/BookingResult/BookingResult";
 import PaymentResult from "./(pages)/public-pages/PaymentResults/PaymentResult";
 import Dashboard from "./(pages)/auth/Dashboard/Dashboard";
 import DashboardProvider from "./context/Dashboard";
-import ProfilePicProvider from "./context/ProfilePicContext";
+import SmoothScroll from "./context/SmoothScroll";
+import Lenis from "@studio-freight/lenis";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  const handleScrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const lenis = new Lenis();
+      lenis.scrollTo(element, {
+        offset: 0,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -62,11 +75,13 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="scroll-smooth">
+      <SmoothScroll>
+
       <AuthProvider>
         <FlightProvider>
           <DashboardProvider>
-            <ProfilePicProvider>
+     
               <Navbar />
               <Toaster
                 position="top-left"
@@ -122,10 +137,11 @@ const App = () => {
                 <Route path="*" element={<Notfound />} />
               </Routes>
               <Footer />
-            </ProfilePicProvider>
+
           </DashboardProvider>
         </FlightProvider>
       </AuthProvider>
+      </SmoothScroll>
     </div>
   );
 };

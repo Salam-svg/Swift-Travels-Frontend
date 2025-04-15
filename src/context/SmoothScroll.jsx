@@ -1,128 +1,62 @@
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-gsap.registerPlugin(ScrollTrigger);
+const SmoothScroll = ({ children }) => {
+  const location = useLocation();
+  const scrollContainerRef = useRef();
+  const targetRef = useRef(0);
+  const currentRef = useRef(0);
+  const ease = 0.1;
 
-const IsolatedSmoothScroll = ({ children, selector, enabled = true }) => {
-  const contentRef = useRef(null);
-  const wrapperRef = useRef(null);
-  const [height, setHeight] = useState("100vh");
-  const scrollY = useRef(0);
-  const animationRef = useRef(null);
+  // Smooth scroll animation
+  const smoothScroll = () => {
+    currentRef.current += (targetRef.current - currentRef.current) * ease;
+    scrollContainerRef.current.scrollTop = currentRef.current;
+    requestAnimationFrame(smoothScroll);
+  };
 
-  // Initialize smooth scroll
   useEffect(() => {
-    if (!enabled) return;
+    const container = scrollContainerRef.current;
     
-    const content = contentRef.current;
-    const wrapper = wrapperRef.current;
-    
-    // Set initial styles
-    content.style.position = "fixed";
-    content.style.width = "100%";
-    content.style.top = 0;
-    content.style.left = 0;
-    
-    const updateHeight = () => {
-      // Update container height to match content
-      setHeight(`${content.scrollHeight}px`);
+    // Handle manual scroll
+    const handleWheel = (e) => {
+      e.preventDefault();
+      targetRef.current += e.deltaY;
+      targetRef.current = Math.max(0, 
+        Math.min(targetRef.current, container.scrollHeight - container.clientHeight)
+      );
     };
-    
-    // Initial height calculation
-    updateHeight();
-    
-    // Handle the animation
-    const handleScroll = () => {
-      scrollY.current = window.scrollY;
-      
-      // Only animate if we're not already doing so (for performance)
-      if (!animationRef.current) {
-        animationRef.current = requestAnimationFrame(render);
+
+    // Handle anchor links
+    const hash = location.hash;
+    if (hash) {
+      const targetElement = document.querySelector(hash);
+      if (targetElement) {
+        targetRef.current = targetElement.offsetTop;
       }
-    };
-    
-    // Render function for smooth scrolling effect
-    const render = () => {
-      // Apply smooth scrolling with lerp (linear interpolation)
-      const currentY = parseFloat(content.style.transform?.split("translateY(")[1]) || 0;
-      const targetY = -scrollY.current;
-      const lerp = 0.1; // Adjust for smoother/faster effect (0.05-0.15 is good)
-      
-      const newY = currentY + (targetY - currentY) * lerp;
-      content.style.transform = `translateY(${newY}px)`;
-      
-      // If we're close enough to target, stop animating
-      if (Math.abs(targetY - newY) < 0.1) {
-        content.style.transform = `translateY(${targetY}px)`;
-        animationRef.current = null;
-      } else {
-        animationRef.current = requestAnimationFrame(render);
-      }
-    };
-    
-    // Setup GSAP ScrollTrigger for selected elements
-    if (selector) {
-      const elements = content.querySelectorAll(selector);
-      elements.forEach(el => {
-        ScrollTrigger.create({
-          trigger: el,
-          start: "top bottom",
-          end: "bottom top",
-          onEnter: () => {
-            gsap.to(el, { 
-              opacity: 1, 
-              y: 0, 
-              duration: 0.8,
-              ease: "power2.out" 
-            });
-          },
-          onLeaveBack: () => {
-            gsap.to(el, { 
-              opacity: 0.5, 
-              y: 50, 
-              duration: 0.5 
-            });
-          }
-        });
-        
-        // Initial state
-        gsap.set(el, { opacity: 0.5, y: 50 });
-      });
     }
-    
-    // Event listeners
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', updateHeight);
-    
-    // Initial render
-    handleScroll();
-    
-    // Cleanup
+
+    container.addEventListener('wheel', handleWheel);
+    requestAnimationFrame(smoothScroll);
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', updateHeight);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      container.removeEventListener('wheel', handleWheel);
     };
-  }, [enabled, selector]);
+  }, [location]);
 
   return (
     <div 
-      ref={wrapperRef} 
-      style={{ 
-        height: height, 
-        position: "relative",
-        overflow: "hidden"
+      ref={scrollContainerRef}
+      style={{
+        position: 'fixed',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
       }}
     >
-      <div ref={contentRef}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 };
 
-export default IsolatedSmoothScroll;
+export default SmoothScroll;

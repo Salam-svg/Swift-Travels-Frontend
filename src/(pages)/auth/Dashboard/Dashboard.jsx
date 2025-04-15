@@ -1,17 +1,9 @@
-// components/Dashboard.jsx
-import { useAuthContext } from "../../../context/AuthContext";
 import { useDashboardContext } from "../../../context/Dashboard";
-import {
-  
-  User,
-  Plane,
-  CreditCard,
-  Upload,
-} from "lucide-react";
+import { User, Plane, CreditCard, Upload } from "lucide-react";
 import DashboardAnimations from "../../../assets/animations/DashboardAnimations/Animation - 1744403522281.json";
-import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Dashboard = () => {
   const {
@@ -22,7 +14,6 @@ const Dashboard = () => {
     loading,
     uploadProfilePicture,
   } = useDashboardContext();
-  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const formatDate = (isoString) => {
@@ -32,8 +23,18 @@ const Dashboard = () => {
       month: "short",
       day: "numeric",
       year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
+
+  const formatCurrency = (amount, currency) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency || "USD",
+    }).format(amount);
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -46,7 +47,6 @@ const Dashboard = () => {
       toast.error("Please select a file to upload");
       return;
     }
-
     await uploadProfilePicture(selectedFile);
     setSelectedFile(null);
   };
@@ -63,18 +63,15 @@ const Dashboard = () => {
     <div className="min-h-screen text-gray-200 font-Josefin w-full max-w-screen-2xl mx-auto">
       <div
         className="p-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8"
-        style={{
-          width: "95%",
-          margin: "0 auto",
-          marginTop: "30px",
-        }}
+        style={{ width: "95%", margin: "0 auto", marginTop: "30px" }}
       >
         <div
-          className="md:col-span-1 bg-gray-800 rounded-xl p-8 border border-gray-700 "
+          className="md:col-span-1 bg-gray-800 rounded-xl p-8 border border-gray-700"
           style={{
-            height: "300px",
+            height: "fit-content",
             paddingLeft: "20px",
             paddingTop: "20px",
+            paddingBottom: "20px",
           }}
         >
           <h2 className="text-lg font-semibold text-blue-400 flex items-center mb-4">
@@ -86,13 +83,12 @@ const Dashboard = () => {
               <img
                 src={user.profilePicture}
                 alt="Profile"
-                className=" mx-auto mb-6 border-2 "
+                className="mx-auto mb-6 border-2"
                 style={{
                   width: "7rem",
                   height: "7rem",
                   borderRadius: "30rem",
                   objectFit: "cover",
-                  
                 }}
               />
             )}
@@ -103,6 +99,12 @@ const Dashboard = () => {
             <p>
               <span className="text-gray-400">Email: </span>
               <span className="text-white">{user?.email || "N/A"}</span>
+            </p>
+            <p>
+              <span className="text-gray-400">Status: </span>
+              <span className="text-white">
+                {user?.isActive ? "Active" : "Inactive"}
+              </span>
             </p>
             <div className="mt-4">
               <label
@@ -118,9 +120,7 @@ const Dashboard = () => {
                   accept="image/*"
                   onChange={handleFileChange}
                   className="text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
-                  style={{
-                    width: "120px"
-                  }}
+                  style={{ width: "120px" }}
                 />
                 <button
                   onClick={handleUpload}
@@ -130,61 +130,162 @@ const Dashboard = () => {
                       ? "bg-blue-600 hover:bg-blue-700"
                       : "bg-gray-600 cursor-not-allowed"
                   } text-white transition-colors duration-300`}
-                 
                 >
                   <Upload className="h-5 w-5 mr-2" />
-                  
+                  Upload
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="md:col-span-2 lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-8">
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 h-full">
+        <div
+          className="md:col-span-2 lg:col-span-3 grid grid-cols-1 gap-8"
+        >
+          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700"
+           style={{
+            paddingLeft: "20px",
+            paddingTop: "20px",
+            paddingBottom: "20px",
+          }}
+          >
+            <h2 className="text-lg font-semibold text-blue-400 flex items-center mb-4">
+              <User className="mr-2 h-5 w-5" />
+              Statistics
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <p className="text-gray-400">
+                Total Bookings:{" "}
+                <span className="text-white">{statistics.totalBookings}</span>
+              </p>
+              <p className="text-gray-400">
+                Confirmed Bookings:{" "}
+                <span className="text-white">
+                  {statistics.confirmedBookings}
+                </span>
+              </p>
+              <p className="text-gray-400">
+                Total Spent:{" "}
+                <span className="text-white">
+                  {formatCurrency(statistics.totalSpent, "USD")}
+                </span>
+              </p>
+              <p className="text-gray-400">
+                Pending Payments:{" "}
+                <span className="text-white">{statistics.pendingPayments}</span>
+              </p>
+            </div>
+          </div>
+
+          {/* Bookings Section */}
+          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700"
+            style={{
+              paddingLeft: "20px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+            }}
+          >
             <h2 className="text-lg font-semibold text-blue-400 flex items-center mb-4">
               <Plane className="mr-2 h-5 w-5" />
-              Bookings
+              Recent Bookings
             </h2>
-            <p className="text-gray-400">
-              Total Bookings:{" "}
-              <span className="text-white">{statistics.totalBookings}</span>
-            </p>
             {recentBookings.length > 0 ? (
-              <ul className="mt-3 space-y-2">
-                {recentBookings.map((booking) => (
-                  <li
-                    key={booking.bookingReference}
-                    className="text-white text-sm"
-                  >
-                    {booking.destination} - {formatDate(booking.departureDate)}{" "}
-                    - {booking.currency} {booking.totalPrice} ({booking.status})
-                  </li>
-                ))}
-              </ul>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left text-gray-200">
+                  <thead className="text-xs text-gray-400 uppercase bg-gray-700">
+                    <tr>
+                      <th className="px-4 py-2">Reference</th>
+                      <th className="px-4 py-2">Destination</th>
+                      <th className="px-4 py-2">Departure</th>
+                      <th className="px-4 py-2">Price</th>
+                      <th className="px-4 py-2">Status</th>
+                      <th className="px-4 py-2">Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recentBookings.map((booking) => (
+                      <tr
+                        key={booking.bookingReference}
+                        className="border-b border-gray-700"
+                      >
+                        <td className="px-4 py-2">
+                          {booking.bookingReference}
+                        </td>
+                        <td className="px-4 py-2">{booking.destination}</td>
+                        <td className="px-4 py-2">
+                          {formatDate(booking.departureDate)}
+                        </td>
+                        <td className="px-4 py-2">
+                          {formatCurrency(booking.totalPrice, booking.currency)}
+                        </td>
+                        <td className="px-4 py-2 capitalize">
+                          {booking.status}
+                        </td>
+                        <td className="px-4 py-2">
+                          {formatDate(booking.createdAt)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
               <p className="text-gray-500 mt-3 text-sm">No bookings found.</p>
             )}
           </div>
 
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 h-full">
+          {/* Payments Section */}
+          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700"
+            style={{
+              paddingLeft: "20px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+            }}
+          >
             <h2 className="text-lg font-semibold text-blue-400 flex items-center mb-4">
               <CreditCard className="mr-2 h-5 w-5" />
-              Payments
+              Recent Payments
             </h2>
-            <p className="text-gray-400">
-              Total Payments:{" "}
-              <span className="text-white">{recentPayments.length}</span>
-            </p>
             {recentPayments.length > 0 ? (
-              <ul className="mt-3 space-y-2">
-                {recentPayments.map((payment) => (
-                  <li key={payment.paymentId} className="text-white text-sm">
-                    {payment.currency} {payment.amount} -{" "}
-                    {formatDate(payment.paymentDate)} - {payment.status}
-                  </li>
-                ))}
-              </ul>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left text-gray-200">
+                  <thead className="text-xs text-gray-400 uppercase bg-gray-700">
+                    <tr>
+                      <th className="px-4 py-2">Payment ID</th>
+                      <th className="px-4 py-2">Amount</th>
+                      <th className="px-4 py-2">Method</th>
+                      <th className="px-4 py-2">Status</th>
+                      <th className="px-4 py-2">Date</th>
+                      <th className="px-4 py-2">Booking Ref</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recentPayments.map((payment) => (
+                      <tr
+                        key={payment.paymentId}
+                        className="border-b border-gray-700"
+                      >
+                        <td className="px-4 py-2">{payment.paymentId}</td>
+                        <td className="px-4 py-2">
+                          {formatCurrency(payment.amount, payment.currency)}
+                        </td>
+                        <td className="px-4 py-2 capitalize">
+                          {payment.method.replace("_", " ")}
+                        </td>
+                        <td className="px-4 py-2 capitalize">
+                          {payment.status}
+                        </td>
+                        <td className="px-4 py-2">
+                          {formatDate(payment.paymentDate)}
+                        </td>
+                        <td className="px-4 py-2">
+                          {payment.bookingReference || "N/A"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
               <p className="text-gray-500 mt-3 text-sm">No payments found.</p>
             )}

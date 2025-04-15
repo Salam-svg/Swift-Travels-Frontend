@@ -17,6 +17,7 @@
     "@radix-ui/themes": "^3.2.1",
     "@react-spring/web": "^9.7.5",
     "@shadcn/ui": "^0.0.4",
+    "@studio-freight/lenis": "^1.0.42",
     "@tabler/icons-react": "^3.31.0",
     "@tailwindcss/vite": "^4.0.15",
     "axios": "^1.8.3",

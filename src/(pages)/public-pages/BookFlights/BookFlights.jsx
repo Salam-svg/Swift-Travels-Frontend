@@ -4,6 +4,7 @@ import { useAuthContext } from "../../../context/AuthContext";
 import { User, PlusCircle, ShieldCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { className } from "@babylonjs/core";
 
 const FlightBookingForm = () => {
   const {  bookFlights, selectedFlight, loading } =
@@ -365,7 +366,7 @@ const FlightBookingForm = () => {
               cursor: "pointer",
             }}
           >
-            {loading ? "Booking Flights..." : "Book Flight"}
+            {loading ?  "Booking Flights..." : "Book Flight"}
           </button>
         </div>
       </form>

@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { useAuthContext } from "./AuthContext"; 
+import { useAuthContext } from "./AuthContext";
 
 export const DashboardContext = createContext();
 
@@ -20,13 +20,12 @@ const DashboardProvider = ({ children }) => {
     },
     recentBookings: [],
     recentPayments: [],
-    refunds: [], 
-    reviews: [], 
+    refunds: [],
+    reviews: [],
   });
   const [loading, setLoading] = useState(false);
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
-  
   useEffect(() => {
     if (user && token) {
       fetchDashboardData();
@@ -43,17 +42,17 @@ const DashboardProvider = ({ children }) => {
         },
       };
 
-      
       const response = await axios.get(`${baseUrl}/user/dashboard`, config);
-      const { user, statistics, recentBookings, recentPayments } = response.data.data;
+      const { user, statistics, recentBookings, recentPayments } =
+        response.data.data;
 
       setDashboardData({
         user,
         statistics,
         recentBookings,
         recentPayments,
-        refunds: [], 
-        reviews: [], 
+        refunds: [],
+        reviews: [],
       });
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
@@ -71,8 +70,7 @@ const DashboardProvider = ({ children }) => {
   const uploadProfilePicture = async (file) => {
     setLoading(true);
     try {
-      
-const formData = new FormData();
+      const formData = new FormData();
       formData.append("profilePicture", file);
       const config = {
         headers: {
@@ -101,12 +99,13 @@ const formData = new FormData();
       }
     } catch (error) {
       console.error("Error uploading profile picture:", error);
-      toast.error(error.response?.data?.error || "Failed to upload profile picture");
+      toast.error(
+        error.response?.data?.error || "Failed to upload profile picture"
+      );
     } finally {
       setLoading(false);
     }
   };
-
 
   const value = {
     ...dashboardData,
@@ -115,7 +114,11 @@ const formData = new FormData();
     uploadProfilePicture,
   };
 
-  return <DashboardContext.Provider value={value}>{children}</DashboardContext.Provider>;
+  return (
+    <DashboardContext.Provider value={value}>
+      {children}
+    </DashboardContext.Provider>
+  );
 };
 
 export default DashboardProvider;
