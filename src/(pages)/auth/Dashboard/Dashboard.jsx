@@ -2,10 +2,10 @@ import { useDashboardContext } from "../../../context/Dashboard";
 import { useAuthContext } from "../../../context/AuthContext";
 import { User, Plane, CreditCard, Upload } from "lucide-react";
 import DashboardAnimations from "../../../assets/animations/DashboardAnimations/Animation - 1744403522281.json";
-
 import Lottie from "lottie-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Dashboard = () => {
   const {
@@ -16,8 +16,9 @@ const Dashboard = () => {
     loading,
     uploadProfilePicture,
   } = useDashboardContext();
-  const { deleteAccount, loadingAuth } = useAuthContext();
+  const { deleteAccount, loadingAuth } = useAuthContext(); // Add loadingAuth
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate(); // Initialize navigate
 
   const formatDate = (isoString) => {
     if (!isoString) return "N/A";
@@ -39,8 +40,17 @@ const Dashboard = () => {
   };
 
   const handleDeleteAccount = async () => {
+    if (!user || !user._id) {
+      toast.error("No active session. Please log in.");
+      navigate("/login");
+      return;
+    }
     if (window.confirm("Are you sure you want to delete your account?")) {
-      await deleteAccount(() => navigate("/"));
+      try {
+        await deleteAccount(() => navigate("/"));
+      } catch (error) {
+        console.error("Delete account failed:", error);
+      }
     }
   };
 
@@ -146,9 +156,7 @@ const Dashboard = () => {
               </div>
             </div>
             <div
-              className=" cursor-pointer"
               style={{
-                backgroundColor: "red",
                 marginTop: "20px",
                 width: "8rem",
                 textAlign: "center",
@@ -160,7 +168,12 @@ const Dashboard = () => {
               <button
                 onClick={handleDeleteAccount}
                 disabled={loadingAuth}
-                style={{ background: "red", color: "white" }}
+                className={`w-full h-full rounded-md ${
+                  loadingAuth
+                    ? "bg-gray-600 cursor-not-allowed"
+                    : "bg-red-600 hover:bg-red-700"
+                } text-white transition-colors duration-300`}
+                aria-label={loadingAuth ? "Deleting account" : "Delete account"}
               >
                 {loadingAuth ? "Deleting..." : "Delete Account"}
               </button>
