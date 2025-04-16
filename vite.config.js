@@ -9,8 +9,5 @@ export default defineConfig({
     tailwindcss(),
     ["react-refresh/babel", { "skipEnvCheck": true }]
   ],
-  build: {
-    outDir: 'dist', 
-  },
-
+ 
 })
