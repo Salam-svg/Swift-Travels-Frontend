@@ -30,17 +30,17 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  const handleScrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const lenis = new Lenis();
-      lenis.scrollTo(element, {
-        offset: 0,
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-    }
-  };
+  // const handleScrollToSection = (sectionId) => {
+  //   const element = document.getElementById(sectionId);
+  //   if (element) {
+  //     const lenis = new Lenis();
+  //     lenis.scrollTo(element, {
+  //       offset: 0,
+  //       duration: 1.2,
+  //       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     const timer = setInterval(() => {
