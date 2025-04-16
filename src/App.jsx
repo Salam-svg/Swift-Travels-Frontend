@@ -76,8 +76,7 @@ const App = () => {
 
   return (
     <div className="scroll-smooth">
-      <SmoothScroll>
-
+   
       <AuthProvider>
         <FlightProvider>
           <DashboardProvider>
@@ -141,7 +140,7 @@ const App = () => {
           </DashboardProvider>
         </FlightProvider>
       </AuthProvider>
-      </SmoothScroll>
+
     </div>
   );
 };
