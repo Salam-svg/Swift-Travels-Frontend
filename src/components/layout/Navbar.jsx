@@ -5,7 +5,7 @@ import "../../styles/Navbar.css";
 import { useEffect } from "react";
 
 const Navbar = () => {
-  const { user, logout } = useAuthContext();
+  const { user, logout  } = useAuthContext();
   const { user: dashboardUser } = useDashboardContext();
 
   useEffect(() => {

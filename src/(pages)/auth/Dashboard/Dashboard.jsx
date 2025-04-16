@@ -1,6 +1,8 @@
 import { useDashboardContext } from "../../../context/Dashboard";
+import { useAuthContext } from "../../../context/AuthContext";
 import { User, Plane, CreditCard, Upload } from "lucide-react";
 import DashboardAnimations from "../../../assets/animations/DashboardAnimations/Animation - 1744403522281.json";
+
 import Lottie from "lottie-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -14,6 +16,7 @@ const Dashboard = () => {
     loading,
     uploadProfilePicture,
   } = useDashboardContext();
+  const { deleteAccount, loadingAuth } = useAuthContext();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const formatDate = (isoString) => {
@@ -33,6 +36,12 @@ const Dashboard = () => {
       style: "currency",
       currency: currency || "USD",
     }).format(amount);
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      await deleteAccount(() => navigate("/"));
+    }
   };
 
   const handleFileChange = (e) => {
@@ -136,18 +145,37 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
+            <div
+              className=" cursor-pointer"
+              style={{
+                backgroundColor: "red",
+                marginTop: "20px",
+                width: "8rem",
+                textAlign: "center",
+                height: "2rem",
+                borderRadius: "20px",
+                paddingTop: ".2rem",
+              }}
+            >
+              <button
+                onClick={handleDeleteAccount}
+                disabled={loadingAuth}
+                style={{ background: "red", color: "white" }}
+              >
+                {loadingAuth ? "Deleting..." : "Delete Account"}
+              </button>
+            </div>
           </div>
         </div>
 
-        <div
-          className="md:col-span-2 lg:col-span-3 grid grid-cols-1 gap-8"
-        >
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700"
-           style={{
-            paddingLeft: "20px",
-            paddingTop: "20px",
-            paddingBottom: "20px",
-          }}
+        <div className="md:col-span-2 lg:col-span-3 grid grid-cols-1 gap-8">
+          <div
+            className="bg-gray-800 rounded-xl p-8 border border-gray-700"
+            style={{
+              paddingLeft: "20px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+            }}
           >
             <h2 className="text-lg font-semibold text-blue-400 flex items-center mb-4">
               <User className="mr-2 h-5 w-5" />
@@ -178,7 +206,8 @@ const Dashboard = () => {
           </div>
 
           {/* Bookings Section */}
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700"
+          <div
+            className="bg-gray-800 rounded-xl p-8 border border-gray-700"
             style={{
               paddingLeft: "20px",
               paddingTop: "20px",
@@ -235,7 +264,8 @@ const Dashboard = () => {
           </div>
 
           {/* Payments Section */}
-          <div className="bg-gray-800 rounded-xl p-8 border border-gray-700"
+          <div
+            className="bg-gray-800 rounded-xl p-8 border border-gray-700"
             style={{
               paddingLeft: "20px",
               paddingTop: "20px",

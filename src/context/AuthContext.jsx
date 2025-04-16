@@ -81,12 +81,53 @@ const AuthProvider = ({ children }) => {
       setLoadingAuth(false);
     }
   };
+
   const logout = () => {
     setUser(null);
     setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     toast.success("Logged out successfully");
+  };
+
+  const deleteAccount = async (callback) => {
+    setLoadingAuth(true);
+    try {
+      const response = await axios.delete(`${baseUrl}/auth/deleteAccount`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+   
+      if (response.data.status === "success") {
+        toast.success(response.data.message); 
+        
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+       
+        if (callback) callback();
+      }
+    } catch (error) {
+     
+      const errorMessage =
+        error.response?.data?.message || "Failed to delete account";
+      toast.error(errorMessage);
+      
+      if (error.response?.status === 401) {
+
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        toast.error("Session expired. Please log in again.");
+      }
+    } finally {
+      setLoadingAuth(false);
+    }
   };
 
   
@@ -99,7 +140,7 @@ const AuthProvider = ({ children }) => {
     Signup,
     login,
     logout,
-
+    deleteAccount
   };
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
