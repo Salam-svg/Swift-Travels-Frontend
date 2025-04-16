@@ -7,9 +7,6 @@ import { useEffect } from "react";
 const Navbar = () => {
   const { user, logout } = useAuthContext();
   const { user: dashboardUser } = useDashboardContext();
-  
-
-
 
   useEffect(() => {
     if (user?.token) {
@@ -65,7 +62,7 @@ const Navbar = () => {
                     width: "3rem",
                     height: "3rem",
                     objectFit: "cover",
-                    borderRadius: "20px"
+                    borderRadius: "20px",
                   }}
                 />
               ) : (
@@ -78,9 +75,26 @@ const Navbar = () => {
                 {user.lastName} {user.firstName}
               </span>
             </Link>
-            <button
-              type="button"
-              onClick={logout}
+            <button type="button" onClick={logout}>
+              <Link
+                className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
+                style={{
+                  backgroundColor: "rgb(105, 16, 87)",
+                  color: "#fff",
+                  padding: "0.5rem 1rem",
+                  borderRadius: "0.5rem",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Logout
+              </Link>
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-3">
+            <Link
+              to="/signup"
               className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
               style={{
                 backgroundColor: "rgb(105, 16, 87)",
@@ -91,44 +105,19 @@ const Navbar = () => {
                 cursor: "pointer",
               }}
             >
-             <Link className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
-          style={{
-            backgroundColor: "rgb(105, 16, 87)",
-            color: "#fff",
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            border: "none",
-            cursor: "pointer",
-          }}>Logout</Link>
-            </button>
-          </div>
-        ) : (
-          <div className="flex gap-3">
-            <Link
-              to="/signup"
-              className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
-          style={{
-            backgroundColor: "rgb(105, 16, 87)",
-            color: "#fff",
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            border: "none",
-            cursor: "pointer",
-          }}
-            >
               Register
             </Link>
             <Link
               to="/login"
               className="mt-4 md:mt-0 w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-blue-900/30"
-          style={{
-            backgroundColor: "rgb(105, 16, 87)",
-            color: "#fff",
-            padding: "0.5rem 1rem",
-            borderRadius: "0.5rem",
-            border: "none",
-            cursor: "pointer",
-          }}
+              style={{
+                backgroundColor: "rgb(105, 16, 87)",
+                color: "#fff",
+                padding: "0.5rem 1rem",
+                borderRadius: "0.5rem",
+                border: "none",
+                cursor: "pointer",
+              }}
             >
               LogIn
             </Link>

@@ -63,7 +63,6 @@ export default function FAQAccordion() {
                 margin: "0 auto",
                 paddingBottom: "20px",
                 marginBottom: "20px",
-
                 boxShadow: ".2px .2px .2px .2px #eee"
               }}
             >
