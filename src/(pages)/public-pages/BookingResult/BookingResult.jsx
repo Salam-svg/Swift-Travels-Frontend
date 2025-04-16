@@ -77,9 +77,9 @@ const BookingResult = () => {
     <div
       className="max-w-4xl mx-auto"
       style={{
-        marginTop: "20px", 
-        marginLeft: "auto", 
-        marginRight: "auto",
+        width: "50%",
+        margin: "0 auto",
+        marginTop: "20px"
       }}
     >
       <div

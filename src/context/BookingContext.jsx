@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 const BookingContext = createContext();
 
@@ -7,16 +8,17 @@ export const useBookingContext = () => useContext(BookingContext);
 
 export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
-  const [currentBooking, setCurrentBooking] = useState(null);
+  const [selectedBooking, setSelectedBooking] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const baseUrl = import.meta.env.VITE_BASE_URL ;
 
   const createBooking = async (bookingData) => {
     try {
       setLoading(true);
       setError(null);
-      
-      const response = await axios.post('/api/bookings', {
+
+      const response = await axios.post(`${baseUrl}/api/bookings`, {
         user: bookingData.userId,
         flightOffer: {
           ...bookingData.flight,
@@ -26,15 +28,19 @@ export const BookingProvider = ({ children }) => {
             currency: bookingData.flight.price.currency
           }
         },
-        flightId: bookingData.flightId
+        flightId: bookingData.flightId,
+        travelers: bookingData.travelers 
       });
 
-      setCurrentBooking(response.data.data);
+      setSelectedBooking(response.data.data);
       setBookings(prev => [...prev, response.data.data]);
+      toast.success(response.data.message);
       return response.data;
 
     } catch (err) {
-      setError(err.response?.data?.error || 'Booking failed');
+      const errorMessage = err.response?.data?.error || 'Booking failed';
+      setError(errorMessage);
+      toast.error(errorMessage);
       throw err;
     } finally {
       setLoading(false);
@@ -44,11 +50,13 @@ export const BookingProvider = ({ children }) => {
   const getBookings = async (userId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/bookings/user/${userId}`);
+      const response = await axios.get(`${baseUrl}/api/bookings/user/${userId}`);
       setBookings(response.data);
       return response.data;
     } catch (err) {
-      setError(err.response?.data?.error || 'Error fetching bookings');
+      const errorMessage = err.response?.data?.error || 'Error fetching bookings';
+      setError(errorMessage);
+      toast.error(errorMessage);
       throw err;
     } finally {
       setLoading(false);
@@ -58,15 +66,40 @@ export const BookingProvider = ({ children }) => {
   const cancelBooking = async (bookingId) => {
     try {
       setLoading(true);
-      const response = await axios.post(`/api/bookings/cancel/${bookingId}`);
-      setBookings(prev => 
-        prev.map(booking => 
+      const response = await axios.post(`${baseUrl}/api/bookings/cancel/${bookingId}`);
+      setBookings(prev =>
+        prev.map(booking =>
           booking._id === bookingId ? response.data.updatedBooking : booking
         )
       );
+      toast.success('Booking cancelled successfully');
       return response.data;
     } catch (err) {
-      setError(err.response?.data?.error || 'Cancellation failed');
+      const errorMessage = err.response?.data?.error || 'Cancellation failed';
+      setError(errorMessage);
+      toast.error(errorMessage);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const makePayment = async (bookingId, paymentData) => {
+    
+    try {
+      setLoading(true);
+      const response = await axios.post(`${baseUrl}/api/payments/${bookingId}`, paymentData);
+      setSelectedBooking(prev => ({
+        ...prev,
+        status: response.data.booking?.status,
+        paymentStatus: response.data.booking?.paymentStatus
+      }));
+      toast.success('Payment processed successfully');
+      return response.data;
+    } catch (err) {
+      const errorMessage = err.response?.data?.error || 'Payment failed';
+      setError(errorMessage);
+      toast.error(errorMessage);
       throw err;
     } finally {
       setLoading(false);
@@ -76,12 +109,13 @@ export const BookingProvider = ({ children }) => {
   return (
     <BookingContext.Provider value={{
       bookings,
-      currentBooking,
+      selectedBooking,
       loading,
       error,
       createBooking,
       getBookings,
-      cancelBooking
+      cancelBooking,
+      makePayment
     }}>
       {children}
     </BookingContext.Provider>

@@ -232,8 +232,12 @@ const PaymentResult = () => {
               paddingRight: "15px",
             }}
           >
-            <div className="traveler-details">
-              <h3
+            <div className="traveler-details"
+              style={{
+                width: ""
+              }}
+            >
+              <h3 
                 className="text-xl font-semibold text-blue-400 border-b border-gray-700 pb-2 mb-4"
                 style={{
                   fontSize: "18px",

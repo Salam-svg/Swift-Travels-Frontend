@@ -40,11 +40,6 @@ const Dashboard = () => {
   };
 
   const handleDeleteAccount = async () => {
-    if (!user || !user._id) {
-      toast.error("No active session. Please log in.");
-      navigate("/login");
-      return;
-    }
     if (window.confirm("Are you sure you want to delete your account?")) {
       try {
         await deleteAccount(() => navigate("/"));
