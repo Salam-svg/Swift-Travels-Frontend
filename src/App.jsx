@@ -25,6 +25,7 @@ import Lenis from "@studio-freight/lenis";
 
 
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
