@@ -24,6 +24,7 @@ import SmoothScroll from "./context/SmoothScroll";
 import Lenis from "@studio-freight/lenis";
 
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
