@@ -158,9 +158,12 @@ const FlightResults = () => {
 
   if (loading) {
     return (
-      <div>
+      <div style={{
+        width: "50%",
+        margin: "0 auto"
+      }}>
         <Lottie
-          className="items-center"
+          
           animationData={loadingFlights}
           style={{ width: 300 }}
         />
