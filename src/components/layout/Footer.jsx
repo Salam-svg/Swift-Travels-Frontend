@@ -172,6 +172,7 @@ const Footer = () => {
         className="text-center md:text-left md:pl-4 lg:pl-8 pt-8 text-gray-500 text-sm"
         style={{
           paddingTop: "30px",
+          paddingLeft: "90px"
         }}
       >
         © 2025 SWIFT-TRAVELS, All Rights Reserved
