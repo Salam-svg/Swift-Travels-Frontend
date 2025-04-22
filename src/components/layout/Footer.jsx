@@ -30,6 +30,7 @@ const Footer = () => {
           style={{
             width: "90%",
             margin: "0 auto",
+            paddingLeft: "70px"
           }}
         >
           <h1
