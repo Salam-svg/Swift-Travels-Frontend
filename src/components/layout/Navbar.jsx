@@ -53,11 +53,11 @@ const Navbar = () => {
               to="/user/dashboard"
               className="flex items-center gap-2 text-white hover:text-blue-300"
             >
-              {/* Profile Picture */}
+              
               {dashboardUser?.profilePicture ? (
                 <img
                   src={dashboardUser.profilePicture}
-                  alt={`${user.firstName} ${user.lastName}`}
+                  alt={`${user.lastName} ${user.firstName} ` }
                   style={{
                     width: "3rem",
                     height: "3rem",
@@ -67,8 +67,8 @@ const Navbar = () => {
                 />
               ) : (
                 <div className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white text-sm">
-                  {user.firstName?.[0]}
                   {user.lastName?.[0]}
+                  {user.firstName?.[0]}
                 </div>
               )}
               <span>

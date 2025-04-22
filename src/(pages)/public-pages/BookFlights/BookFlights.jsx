@@ -125,10 +125,10 @@ const FlightBookingForm = () => {
                   animate-border-flow rounded-3xl 
                   group-hover:opacity-100"
       style={{
-        width: "100%", // Adjust width for mobile
-        maxWidth: "700px", // Limit max width for larger screens
-        margin: "0 auto", // Center the form
-        paddingTop: "20px", // Reduce padding for mobile
+        width: "100%", 
+        maxWidth: "700px", 
+        margin: "0 auto", 
+        paddingTop: "20px", 
         paddingBottom: "20px",
         paddingLeft: "10px",
         paddingRight: "10px",
@@ -138,7 +138,7 @@ const FlightBookingForm = () => {
         className="p-6 flex items-center"
         style={{
           background: "linear-gradient(to right, #2196F3, #3e246b)",
-          height: "50px", // Reduce height for mobile
+          height: "50px",
           textAlign: "center",
           borderRadius: "5rem",
         }}
@@ -147,7 +147,7 @@ const FlightBookingForm = () => {
           className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-pink-500 bg-clip-text text-transparent text-9xl"
           style={{
             textAlign: "center",
-            fontSize: "20px", // Reduce font size for mobile
+            fontSize: "20px",
           }}
         >
           Flight Booking
@@ -168,13 +168,13 @@ const FlightBookingForm = () => {
             name="userId"
             value={formData.userId}
             disabled
-            className="outline-none w-full" // Make input full width
+            className="outline-none w-full" 
             style={{
               border: "1px solid rgb(30, 79, 137)",
               backgroundColor: "rgb(30, 32, 37)",
               borderRadius: "5px",
               textAlign: "left",
-              lineHeight: "40px", // Reduce line height for mobile
+              lineHeight: "40px", 
               paddingLeft: "10px",
               marginBottom: "10px",
             }}
@@ -186,17 +186,17 @@ const FlightBookingForm = () => {
             key={index}
             className="bg-gray-700 border border-gray-600 rounded-lg p-4 space-y-4 shadow-sm"
             style={{
-              paddingTop: "20px", // Reduce padding for mobile
+              paddingTop: "20px",
               paddingBottom: "20px",
               paddingLeft: "10px",
               paddingRight: "10px",
-              marginBottom: "20px", // Reduce margin for mobile
+              marginBottom: "20px", 
             }}
           >
             <h3 className="text-lg font-semibold text-gray-200 mb-4">
               Traveler {index + 1}
             </h3>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2"> {/* Stack inputs on mobile */}
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2"> 
               <div>
                 <label
                   htmlFor={`firstName-${index}`}
@@ -211,13 +211,13 @@ const FlightBookingForm = () => {
                   placeholder="First Name"
                   value={traveler.firstName}
                   onChange={(e) => handleChange(e, index)}
-                  className="outline-none w-full" // Make input full width
+                  className="outline-none w-full" 
                   style={{
                     border: "1px solid rgb(30, 79, 137)",
                     backgroundColor: "rgb(30, 32, 37)",
                     borderRadius: "5px",
                     textAlign: "left",
-                    lineHeight: "40px", // Reduce line height for mobile
+                    lineHeight: "40px", 
                     paddingLeft: "10px",
                     marginBottom: "10px",
                   }}
@@ -238,13 +238,13 @@ const FlightBookingForm = () => {
                   placeholder="Last Name"
                   value={traveler.lastName}
                   onChange={(e) => handleChange(e, index)}
-                  className="outline-none w-full" // Make input full width
+                  className="outline-none w-full" 
                   style={{
                     border: "1px solid rgb(30, 79, 137)",
                     backgroundColor: "rgb(30, 32, 37)",
                     borderRadius: "5px",
                     textAlign: "left",
-                    lineHeight: "40px", // Reduce line height for mobile
+                    lineHeight: "40px", 
                     paddingLeft: "10px",
                     marginBottom: "10px",
                   }}
@@ -252,7 +252,7 @@ const FlightBookingForm = () => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2"> {/* Stack inputs on mobile */}
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2"> 
               <div>
                 <label
                   htmlFor={`email-${index}`}
@@ -267,13 +267,13 @@ const FlightBookingForm = () => {
                   placeholder="Email Address"
                   value={traveler.email}
                   onChange={(e) => handleChange(e, index)}
-                  className="outline-none w-full" // Make input full width
+                  className="outline-none w-full" 
                   style={{
                     border: "1px solid rgb(30, 79, 137)",
                     backgroundColor: "rgb(30, 32, 37)",
                     borderRadius: "5px",
                     textAlign: "left",
-                    lineHeight: "40px", // Reduce line height for mobile
+                    lineHeight: "40px", 
                     paddingLeft: "10px",
                     marginBottom: "10px",
                   }}
@@ -294,13 +294,13 @@ const FlightBookingForm = () => {
                   placeholder="Passport Number"
                   value={traveler.passportNumber}
                   onChange={(e) => handleChange(e, index)}
-                  className="outline-none w-full" // Make input full width
+                  className="outline-none w-full" 
                   style={{
                     border: "1px solid rgb(30, 79, 137)",
                     backgroundColor: "rgb(30, 32, 37)",
                     borderRadius: "5px",
                     textAlign: "left",
-                    lineHeight: "40px", // Reduce line height for mobile
+                    lineHeight: "40px", 
                     paddingLeft: "10px",
                     marginBottom: "10px",
                   }}
@@ -320,13 +320,13 @@ const FlightBookingForm = () => {
                 name="travelerType"
                 value={traveler.travelerType}
                 onChange={(e) => handleChange(e, index)}
-                className="outline-none w-full" // Make select full width
+                className="outline-none w-full"
                 style={{
                   border: "1px solid rgb(30, 79, 137)",
                   backgroundColor: "rgb(30, 32, 37)",
                   borderRadius: "5px",
                   textAlign: "left",
-                  lineHeight: "40px", // Reduce line height for mobile
+                  lineHeight: "40px",
                   paddingLeft: "10px",
                   paddingBottom: "10px",
                   marginBottom: "5px",
